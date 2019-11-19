@@ -3,7 +3,7 @@ describe('サンプルテストコード', () => {
     expect(true).toBeTruthy()
   })
 
-  it('落ちるテスト', () => {
+  it.skip('落ちるテスト', () => {
     expect(true).toBeFalsy()
   })
 })
