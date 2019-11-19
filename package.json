@@ -16,7 +16,9 @@
   },
   "homepage": "https://github.com/maboroshi-inc/type-assertions#readme",
   "devDependencies": {
+    "@maboroshi/eslint-config": "^2.0.0",
     "@maboroshi/prettier-config": "^1.0.0",
+    "eslint": "^6.6.0",
     "prettier": "^1.19.1",
     "typescript": "^3.7.2"
   }
