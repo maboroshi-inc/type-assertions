@@ -19,6 +19,7 @@ jobs:
     - name: npm install, lint, type-check, and test
       run: |
         npm ci
+        npm run lint
         npx tsc --noEmit
         npm test -- --ci
       env:
