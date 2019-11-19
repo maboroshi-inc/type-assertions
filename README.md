@@ -1,2 +1,3 @@
 # type-assertions
-Type assertion utilities.
+
+型アサーションユーティリティ
