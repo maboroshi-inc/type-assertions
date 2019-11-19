@@ -16,6 +16,8 @@
   },
   "homepage": "https://github.com/maboroshi-inc/type-assertions#readme",
   "devDependencies": {
+    "@maboroshi/prettier-config": "^1.0.0",
+    "prettier": "^1.19.1",
     "typescript": "^3.7.2"
   }
 }
