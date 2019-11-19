@@ -14,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/maboroshi-inc/type-assertions/issues"
   },
-  "homepage": "https://github.com/maboroshi-inc/type-assertions#readme"
+  "homepage": "https://github.com/maboroshi-inc/type-assertions#readme",
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  }
 }
