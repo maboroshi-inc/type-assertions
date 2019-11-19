@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Type assertion utilities.",
   "scripts": {
+    "build": "rollup -c",
     "lint": "eslint src/**/*.ts __tests__/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest"
