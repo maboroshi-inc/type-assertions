@@ -2,9 +2,10 @@ import Checks from './checks'
 
 /**
  * 型アサートAPI
- * 型が指定の値であるかアサートする
+ * @description 型が指定の値であるかアサートする
+ * @category API
  */
-export default {
+export const Asserts = {
   /**
    * 値が数値かアサートする
    * @param value
@@ -17,3 +18,5 @@ export default {
     }
   }
 }
+
+export default Asserts
