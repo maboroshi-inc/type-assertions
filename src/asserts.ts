@@ -1,4 +1,4 @@
-import { Checks } from './checks'
+import Checks from './checks'
 
 /**
  * 型アサート機能を提供する

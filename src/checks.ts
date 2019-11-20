@@ -1,13 +1,14 @@
 /**
- * 型チェック機能を提供する
+ * 型チェックAPI
+ * 値が指定の方であるか否かを `boolean` で返す
  */
-export namespace Checks {
+export default {
   /**
    * 値が数値か否かを返す
    * @param value
    * @todo `typeof` を使わない実装にする
    */
-  export function isNumber(value: any): value is number {
+  isNumber(value: any): value is number {
     return typeof value === 'number'
   }
 }
