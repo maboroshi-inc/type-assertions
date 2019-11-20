@@ -1,8 +1,9 @@
 /**
  * 型チェックAPI
- * 値が指定の方であるか否かを `boolean` で返す
+ * @description 値が指定の方であるか否かを `boolean` で返す
+ * @category API
  */
-export default {
+export const Checks = {
   /**
    * 値が数値か否かを返す
    * @param value
@@ -12,3 +13,5 @@ export default {
     return typeof value === 'number'
   }
 }
+
+export default Checks
