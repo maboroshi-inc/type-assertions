@@ -9,7 +9,7 @@ export default {
     {
       file: './dist/index.js',
       format: 'umd',
-      name: 'MathUtils'
+      name: 'TypeAssertions'
     },
     {
       file: './dist/index.mjs',

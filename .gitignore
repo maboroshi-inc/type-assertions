@@ -61,5 +61,8 @@ typings/
 .next
 
 # any
-dist
+.idea
 .rpt2_cache
+.vscode
+dist
+docs
