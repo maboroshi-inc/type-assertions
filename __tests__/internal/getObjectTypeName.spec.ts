@@ -18,37 +18,22 @@ describe('getObjectTypeName()', () => {
 
   it('"[object Number]" を返す', () => {
     expect(getObjectTypeName(NaN)).toBe('[object Number]')
-  })
-
-  it('"[object Number]" を返す', () => {
     expect(getObjectTypeName(123)).toBe('[object Number]')
-  })
-
-  it('"[object Number]" を返す', () => {
     expect(getObjectTypeName(new Number(123))).toBe('[object Number]') // eslint-disable-line no-new-wrappers
   })
 
   it('"[object String]" を返す', () => {
     expect(getObjectTypeName('string')).toBe('[object String]')
-  })
-
-  it('"[object String]" を返す', () => {
     expect(getObjectTypeName(new String('string'))).toBe('[object String]') // eslint-disable-line no-new-wrappers
   })
 
   it('"[object Boolean]" を返す', () => {
     expect(getObjectTypeName(true)).toBe('[object Boolean]')
-  })
-
-  it('"[object Boolean]" を返す', () => {
     expect(getObjectTypeName(false)).toBe('[object Boolean]')
   })
 
   it('"[object RegExp]" を返す', () => {
     expect(getObjectTypeName(/^.+$/)).toBe('[object RegExp]')
-  })
-
-  it('"[object RegExp]" を返す', () => {
     expect(getObjectTypeName(new RegExp('^.+$'))).toBe('[object RegExp]')
   })
 
@@ -78,9 +63,6 @@ describe('getObjectTypeName()', () => {
         return undefined
       })
     ).toBe('[object Function]')
-  })
-
-  it('"[object Function]" を返す', () => {
     expect(getObjectTypeName(() => undefined)).toBe('[object Function]')
   })
 
