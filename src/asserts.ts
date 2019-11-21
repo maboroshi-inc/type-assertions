@@ -1,4 +1,5 @@
 import Checks from './checks'
+import { assert } from './internal/assert'
 
 /**
  * 型アサートAPI
@@ -10,12 +11,9 @@ export const Asserts = {
    * 値が数値かアサートする
    * @param value
    * @throw {TypeError} 値が数値でない
-   * @todo エラー生成などは内部機能で共通化する
    */
   isNumber(value: any): asserts value is number {
-    if (!Checks.isNumber(value)) {
-      throw new TypeError('value is not a number')
-    }
+    return assert(Checks.isNumber(value), 'value is not a number')
   }
 }
 
