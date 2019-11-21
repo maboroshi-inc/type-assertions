@@ -10,7 +10,7 @@ export const Asserts = {
   /**
    * 値が数値かアサートする
    * @param value
-   * @throw {TypeError} 値が数値でない
+   * @throw `value` が数値でない
    */
   isNumber(value: any): asserts value is number {
     return assert(Checks.isNumber(value), 'value is not a number')
