@@ -32,6 +32,12 @@ describe('getObjectTypeName()', () => {
     expect(getObjectTypeName(false)).toBe('[object Boolean]')
   })
 
+  it('"[object Date]" を返す', () => {
+    expect(getObjectTypeName(new Date('2020-10-10T12:34:56.789+09:00'))).toBe(
+      '[object Date]'
+    )
+  })
+
   it('"[object RegExp]" を返す', () => {
     expect(getObjectTypeName(/^.+$/)).toBe('[object RegExp]')
     expect(getObjectTypeName(new RegExp('^.+$'))).toBe('[object RegExp]')
