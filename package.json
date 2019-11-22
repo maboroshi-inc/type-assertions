@@ -1,6 +1,6 @@
 {
   "name": "@maboroshi/type-assertions",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Type assertion utilities.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
