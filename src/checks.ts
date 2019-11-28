@@ -8,6 +8,7 @@ import { getObjectTypeName } from './internal/getObjectTypeName'
 export const Checks = {
   /**
    * 値が数値か否かを返す
+   * @description `NaN` を `true` とする
    * @param value
    */
   isNumber(value: unknown): value is number {
