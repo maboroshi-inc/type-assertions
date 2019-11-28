@@ -5,10 +5,14 @@ describe('Asserts API', () => {
   const createAssertion = (assertion: (value: unknown) => void) => (
     value: unknown
   ) => assertion(value)
+  let assertion: ReturnType<typeof createAssertion>
+  let checksAPISpy: jest.SpyInstance
 
   describe('isNumber()', () => {
-    const assertion = createAssertion(Asserts.isNumber)
-    let checksAPISpy = jest.spyOn(Checks, 'isNumber')
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isNumber)
+      checksAPISpy = jest.spyOn(Checks, 'isNumber')
+    })
 
     beforeEach(() => {
       checksAPISpy.mockClear()
