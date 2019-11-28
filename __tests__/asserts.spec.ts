@@ -8,6 +8,36 @@ describe('Asserts API', () => {
   let assertion: ReturnType<typeof createAssertion>
   let checksAPISpy: jest.SpyInstance
 
+  describe('isNaN()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isNaN)
+      checksAPISpy = jest.spyOn(Checks, 'isNaN')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isNaN()` を呼び出す', () => {
+      assertion(NaN)
+      expect(checksAPISpy).toHaveBeenCalledWith(NaN)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(NaN)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a NaN')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isNumber()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isNumber)
