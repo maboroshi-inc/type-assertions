@@ -28,6 +28,7 @@ describe('Checks API', () => {
 
     it('`false` を返す', () => {
       expect(Checks.isNumber(null)).toBe(false)
+      expect(Checks.isNumber('123')).toBe(false)
     })
   })
 })
