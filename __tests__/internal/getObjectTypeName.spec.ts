@@ -113,4 +113,8 @@ describe('getObjectTypeName()', () => {
       })
     ).toBe('[object GeneratorFunction]')
   })
+
+  it('"[object Error]" を返す', () => {
+    expect(getObjectTypeName(new Error())).toBe('[object Error]')
+  })
 })
