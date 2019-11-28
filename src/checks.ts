@@ -11,7 +11,7 @@ export const Checks = {
    * @param value
    */
   isNaN(value: unknown): value is typeof NaN {
-    return true
+    return Checks.isNumber(value) && Number.isNaN(value)
   },
 
   /**
