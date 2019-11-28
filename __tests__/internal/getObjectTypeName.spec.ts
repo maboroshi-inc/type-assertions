@@ -89,6 +89,10 @@ describe('getObjectTypeName()', () => {
     expect(getObjectTypeName(new Set(['value']))).toBe('[object Set]')
   })
 
+  it('"[object WeakMap]" を返す', () => {
+    expect(getObjectTypeName(new WeakMap())).toBe('[object WeakMap]')
+  })
+
   it('"[object Function]" を返す', () => {
     expect(
       getObjectTypeName(function func() {
