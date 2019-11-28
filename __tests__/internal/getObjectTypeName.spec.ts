@@ -23,6 +23,23 @@ describe('getObjectTypeName()', () => {
     expect(getObjectTypeName(new Number(123))).toBe('[object Number]') // eslint-disable-line no-new-wrappers
   })
 
+  it('"[object BigInt]" を返す', () => {
+    // BigInt リテラルは tsc で `compilerOptions.target = esnext` に設定しなくては使用できないので現バージョンではサポートしない
+    // expect(getObjectTypeName(9007199254740991n)).toBe('[object BigInt]')
+    expect(getObjectTypeName(BigInt(9007199254740991))).toBe('[object BigInt]')
+    expect(getObjectTypeName(BigInt('9007199254740991'))).toBe(
+      '[object BigInt]'
+    )
+    expect(getObjectTypeName(BigInt('0x1fffffffffffff'))).toBe(
+      '[object BigInt]'
+    )
+    expect(
+      getObjectTypeName(
+        BigInt('0b11111111111111111111111111111111111111111111111111111')
+      )
+    ).toBe('[object BigInt]')
+  })
+
   it('"[object String]" を返す', () => {
     expect(getObjectTypeName('string')).toBe('[object String]')
     expect(getObjectTypeName(new String('string'))).toBe('[object String]') // eslint-disable-line no-new-wrappers
