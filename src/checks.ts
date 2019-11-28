@@ -7,6 +7,14 @@ import { getObjectTypeName } from './internal/getObjectTypeName'
  */
 export const Checks = {
   /**
+   * 値が `NaN` か否かを返す
+   * @param value
+   */
+  isNaN(value: unknown): value is typeof NaN {
+    return true
+  },
+
+  /**
    * 値が数値か否かを返す
    * @description `NaN` を `true` とする
    * @param value
