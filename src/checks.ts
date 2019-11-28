@@ -8,10 +8,10 @@ import { getObjectTypeName } from './internal/getObjectTypeName'
 export const Checks = {
   /**
    * 値が数値か否かを返す
+   * @description `NaN` を `true` とする
    * @param value
-   * @todo `value` を `unknown` 型とする
    */
-  isNumber(value: any): value is number {
+  isNumber(value: unknown): value is number {
     return getObjectTypeName(value) === '[object Number]'
   }
 }
