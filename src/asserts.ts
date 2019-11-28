@@ -12,7 +12,7 @@ export const Asserts = {
    * @param value
    */
   isNaN(value: unknown): asserts value is typeof NaN {
-    return
+    return assert(Checks.isNaN(value), 'value is not a NaN')
   },
 
   /**
