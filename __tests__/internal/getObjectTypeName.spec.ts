@@ -1,5 +1,4 @@
 import { getObjectTypeName } from '../../src/internal/getObjectTypeName'
-import { resolve } from 'path'
 
 describe('getObjectTypeName()', () => {
   it('`Object.prototype.toString.call()` を呼び出す', () => {
@@ -73,7 +72,7 @@ describe('getObjectTypeName()', () => {
     expect(getObjectTypeName(new Promise(resolve => resolve()))).toBe(
       '[object Promise]'
     )
-    const asyncFunc = async () => undefined
+    const asyncFunc = async (): Promise<void> => undefined
     expect(getObjectTypeName(asyncFunc())).toBe('[object Promise]')
   })
 
