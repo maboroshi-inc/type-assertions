@@ -12,7 +12,7 @@ export const Asserts = {
    * @param value
    */
   isArray<T>(value: unknown): asserts value is T[] {
-    return
+    return assert(Checks.isArray<T>(value), 'value is not an array')
   },
 
   /**
