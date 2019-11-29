@@ -14,6 +14,25 @@ describe('Checks API', () => {
     getObjectTypeNameSpy.mockRestore()
   })
 
+  describe('isArray()', () => {
+    it('`Array.isArray() を呼び出す', () => {
+      const isArraySpy = jest.spyOn(Array, 'isArray')
+      Checks.isArray([])
+      expect(isArraySpy).toBeCalledWith([])
+      isArraySpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isArray([])).toBe(true)
+      expect(Checks.isArray(new Array())).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isArray(null)).toBe(false)
+      expect(Checks.isArray(new Set())).toBe(false)
+    })
+  })
+
   describe('isNumber()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       Checks.isNumber(123)

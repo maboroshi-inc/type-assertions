@@ -7,6 +7,14 @@ import { getObjectTypeName } from './internal/getObjectTypeName'
  */
 export const Checks = {
   /**
+   * 値が配列か否かを返す
+   * @param value
+   */
+  isArray<T>(value: unknown): value is T[] {
+    return true
+  },
+
+  /**
    * 値が数値か否かを返す
    * @description `NaN` を `true` とする
    * @param value
