@@ -8,6 +8,7 @@ import { getObjectTypeName } from './internal/getObjectTypeName'
 export const Checks = {
   /**
    * 値が `NaN` か否かを返す
+   * @alias `Number.isNaN()`
    * @param value
    */
   isNaN(value: unknown): value is typeof NaN {
