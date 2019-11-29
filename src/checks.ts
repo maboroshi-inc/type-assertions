@@ -8,10 +8,11 @@ import { getObjectTypeName } from './internal/getObjectTypeName'
 export const Checks = {
   /**
    * 値が配列か否かを返す
+   * @alias `Array.isArray()`
    * @param value
    */
   isArray<T>(value: unknown): value is T[] {
-    return true
+    return Array.isArray(value)
   },
 
   /**
