@@ -8,6 +8,14 @@ import { assert } from './internal/assert'
  */
 export const Asserts = {
   /**
+   * 値が配列かアサートする
+   * @param value
+   */
+  isArray<T>(value: unknown): asserts value is T[] {
+    return
+  },
+
+  /**
    * 値が数値かアサートする
    * @description `NaN` を許容する
    * @param value
