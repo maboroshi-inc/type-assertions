@@ -7,6 +7,32 @@ import { getObjectTypeName } from './internal/getObjectTypeName'
  */
 export const Checks = {
   /**
+   * 値が配列か否かを返す
+   * @alias `Array.isArray()`
+   * @param value
+   */
+  isArray<T>(value: unknown): value is T[] {
+    return Array.isArray(value)
+  },
+
+  /**
+   * 値がBigIntか否かを返す
+   * @param value
+   */
+  isBigInt(value: unknown): value is bigint {
+    return getObjectTypeName(value) === '[object BigInt]'
+  },
+
+  /**
+   * 値が `NaN` か否かを返す
+   * @alias `Number.isNaN()`
+   * @param value
+   */
+  isNaN(value: unknown): value is typeof NaN {
+    return Checks.isNumber(value) && Number.isNaN(value)
+  },
+
+  /**
    * 値が数値か否かを返す
    * @description `NaN` を `true` とする
    * @param value
