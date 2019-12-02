@@ -22,7 +22,7 @@ describe('Asserts API', () => {
       checksAPISpy.mockRestore()
     })
 
-    it('`Chekcs.isArray()` を呼び出す', () => {
+    it('`Checks.isArray()` を呼び出す', () => {
       assertion([])
       expect(checksAPISpy).toHaveBeenCalledWith([])
     })
@@ -64,6 +64,36 @@ describe('Asserts API', () => {
 
     it('例外を投げる', () => {
       expect(() => assertion(null)).toThrowError('value is not a bigint')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
+  describe('isNaN()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isNaN)
+      checksAPISpy = jest.spyOn(Checks, 'isNaN')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isNaN()` を呼び出す', () => {
+      assertion(NaN)
+      expect(checksAPISpy).toHaveBeenCalledWith(NaN)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(NaN)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a NaN')
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })

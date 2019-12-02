@@ -24,6 +24,15 @@ export const Checks = {
   },
 
   /**
+   * 値が `NaN` か否かを返す
+   * @alias `Number.isNaN()`
+   * @param value
+   */
+  isNaN(value: unknown): value is typeof NaN {
+    return Checks.isNumber(value) && Number.isNaN(value)
+  },
+
+  /**
    * 値が数値か否かを返す
    * @description `NaN` を `true` とする
    * @param value
