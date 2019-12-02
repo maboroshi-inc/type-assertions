@@ -8,6 +8,15 @@ import { assert } from './internal/assert'
  */
 export const Asserts = {
   /**
+   * 値がBigIntかアサートする
+   * @param value
+   * @throw `value` がBigIntでない
+   */
+  isBigInt(value: unknown): asserts value is bigint {
+    return
+  },
+
+  /**
    * 値が数値かアサートする
    * @description `NaN` を許容する
    * @param value
