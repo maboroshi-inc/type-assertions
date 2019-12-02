@@ -8,6 +8,14 @@ import { assert } from './internal/assert'
  */
 export const Asserts = {
   /**
+   * 値が配列かアサートする
+   * @param value
+   */
+  isArray<T>(value: unknown): asserts value is T[] {
+    return assert(Checks.isArray<T>(value), 'value is not an array')
+  },
+
+  /**
    * 値がBigIntかアサートする
    * @param value
    * @throw `value` がBigIntでない
