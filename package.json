@@ -13,7 +13,8 @@
     "lint": "eslint src/**/*.ts __tests__/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
