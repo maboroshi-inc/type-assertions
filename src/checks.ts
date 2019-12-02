@@ -11,7 +11,7 @@ export const Checks = {
    * @param value
    */
   isBigInt(value: unknown): value is bigint {
-    return true
+    return getObjectTypeName(value) === '[object BigInt]'
   },
 
   /**
