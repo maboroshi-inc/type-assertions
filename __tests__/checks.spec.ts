@@ -14,6 +14,30 @@ describe('Checks API', () => {
     getObjectTypeNameSpy.mockRestore()
   })
 
+  describe('isBigInt()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      Checks.isBigInt(BigInt(9007199254740991))
+      expect(getObjectTypeNameSpy).toBeCalledWith(BigInt(9007199254740991))
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isBigInt(BigInt(9007199254740991))).toBe(true)
+      expect(Checks.isBigInt(BigInt('9007199254740991'))).toBe(true)
+      expect(Checks.isBigInt(BigInt('0x1fffffffffffff'))).toBe(true)
+      expect(
+        Checks.isBigInt(
+          BigInt('0b11111111111111111111111111111111111111111111111111111')
+        )
+      ).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isBigInt(123)).toBe(false)
+      expect(Checks.isBigInt(NaN)).toBe(false)
+      expect(Checks.isBigInt(null)).toBe(false)
+    })
+  })
+
   describe('isNaN()', () => {
     it('`Checks.isNumber() を呼び出す`', () => {
       const isNumberSpy = jest.spyOn(Checks, 'isNumber')
