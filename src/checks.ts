@@ -7,6 +7,14 @@ import { getObjectTypeName } from './internal/getObjectTypeName'
  */
 export const Checks = {
   /**
+   * 値がBigIntか否かを返す
+   * @param value
+   */
+  isBigInt(value: unknown): value is bigint {
+    return getObjectTypeName(value) === '[object BigInt]'
+  },
+
+  /**
    * 値が数値か否かを返す
    * @description `NaN` を `true` とする
    * @param value
