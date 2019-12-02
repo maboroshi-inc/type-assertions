@@ -8,6 +8,36 @@ describe('Asserts API', () => {
   let assertion: ReturnType<typeof createAssertion>
   let checksAPISpy: jest.SpyInstance
 
+  describe('isArray()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isArray)
+      checksAPISpy = jest.spyOn(Checks, 'isArray')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isArray()` を呼び出す', () => {
+      assertion([])
+      expect(checksAPISpy).toHaveBeenCalledWith([])
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion([])).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる。', () => {
+      expect(() => assertion(null)).toThrowError('value is not an array')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isBigInt()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isBigInt)
@@ -22,7 +52,7 @@ describe('Asserts API', () => {
       checksAPISpy.mockRestore()
     })
 
-    it('`Checks.isNumber()` を呼び出す', () => {
+    it('`Checks.BigInt()` を呼び出す', () => {
       assertion(BigInt(9007199254740991))
       expect(checksAPISpy).toHaveBeenCalledWith(BigInt(9007199254740991))
     })

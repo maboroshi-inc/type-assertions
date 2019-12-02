@@ -1,8 +1,8 @@
 import Checks from '../src/checks'
 
 describe('Checks API', () => {
-  let getObjectTypeNameSpy = jest.spyOn(
-    require('../src/internal/getObjectTypeName'),
+  const getObjectTypeNameSpy = jest.spyOn(
+    require('../src/internal/getObjectTypeName'), // eslint-disable-line @typescript-eslint/no-var-requires
     'getObjectTypeName'
   )
 
@@ -12,6 +12,25 @@ describe('Checks API', () => {
 
   afterAll(() => {
     getObjectTypeNameSpy.mockRestore()
+  })
+
+  describe('isArray()', () => {
+    it('`Array.isArray() を呼び出す', () => {
+      const isArraySpy = jest.spyOn(Array, 'isArray')
+      Checks.isArray([])
+      expect(isArraySpy).toBeCalledWith([])
+      isArraySpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isArray([])).toBe(true)
+      expect(Checks.isArray(new Array())).toBe(true) // eslint-disable-line @typescript-eslint/no-array-constructor
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isArray(null)).toBe(false)
+      expect(Checks.isArray(new Set())).toBe(false)
+    })
   })
 
   describe('isBigInt()', () => {
