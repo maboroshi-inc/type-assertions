@@ -13,7 +13,7 @@ export const Asserts = {
    * @throw `value` がBigIntでない
    */
   isBigInt(value: unknown): asserts value is bigint {
-    return
+    return assert(Checks.isBigInt(value), 'value is not a bigint')
   },
 
   /**
