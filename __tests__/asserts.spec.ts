@@ -127,4 +127,51 @@ describe('Asserts API', () => {
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })
+
+  describe('isPromise()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isPromise)
+      checksAPISpy = jest.spyOn(Checks, 'isPromise')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isPromise()` を呼び出す', () => {
+      assertion(Promise.resolve(true))
+      expect(checksAPISpy).toHaveBeenCalledWith(Promise.resolve(true))
+    })
+
+    it.each([
+      new Promise(resolve => {
+        resolve()
+      }),
+      Promise.resolve(true),
+      Promise.reject(new Error('rejected'))
+    ])('チェックをパスする', promise => {
+      expect(() => assertion(promise)).not.toThrowError()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+
+      promise.catch(() => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+    })
+
+    it.each([
+      null,
+
+      // thenableなオブジェクト
+      {
+        then(): Promise<unknown> {
+          return Promise.resolve()
+        }
+      }
+    ])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a Promise')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
 })

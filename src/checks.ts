@@ -39,6 +39,14 @@ export const Checks = {
    */
   isNumber(value: unknown): value is number {
     return getObjectTypeName(value) === '[object Number]'
+  },
+
+  /**
+   * 値がビルトインの `Promise` オブジェクトか否かを返す
+   * @param value
+   */
+  isPromise(value: unknown): value is Promise<unknown> {
+    return getObjectTypeName(value) === '[object Promise]'
   }
 }
 

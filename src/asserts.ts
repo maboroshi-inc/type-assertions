@@ -40,6 +40,15 @@ export const Asserts = {
    */
   isNumber(value: any): asserts value is number {
     return assert(Checks.isNumber(value), 'value is not a number')
+  },
+
+  /**
+   * 値がビルトインの `Promise` オブジェクトかアサートする
+   * @param value
+   * @throw `value` がPromiseでない
+   */
+  isPromise(value: unknown): asserts value is Promise<unknown> {
+    assert(Checks.isPromise(value), 'value is not a Promise')
   }
 }
 
