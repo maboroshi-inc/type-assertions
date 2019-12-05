@@ -47,7 +47,7 @@ export const Checks = {
    * @param value
    */
   isStrictNumber(value: unknown): value is number {
-    return true
+    return Checks.isNumber(value) && !Checks.isNaN(value)
   }
 }
 
