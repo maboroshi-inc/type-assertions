@@ -30,7 +30,7 @@ export const Asserts = {
    * @throw `value` がBooleanでない
    */
   isBoolean(value: unknown): asserts value is boolean {
-    return
+    return assert(Checks.isBoolean(value), 'value is not a boolean')
   },
 
   /**
