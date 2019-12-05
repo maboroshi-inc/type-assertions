@@ -49,7 +49,7 @@ export const Checks = {
    * 値がビルトインの `Promise` オブジェクトか否かを返す
    * @param value
    */
-  isPromise(value: unknown): value is Promise<unknown> {
+  isPromise<T>(value: unknown): value is Promise<T> {
     return getObjectTypeName(value) === '[object Promise]'
   },
 
@@ -57,7 +57,7 @@ export const Checks = {
    * 値が `PromiseLike` なオブジェクトか否かを返す
    * @param value
    */
-  isPromiseLike(value: unknown): value is PromiseLike<unknown> {
+  isPromiseLike<T>(value: unknown): value is PromiseLike<T> {
     if (Checks.isPromise(value)) {
       return true
     }
