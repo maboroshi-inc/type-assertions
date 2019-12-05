@@ -49,7 +49,7 @@ export const Asserts = {
    * @throw `value` が厳密に数値でない
    */
   isStrictNumber(value: unknown): asserts value is number {
-    return
+    return assert(Checks.isStrictNumber(value), 'value is not a strict number')
   }
 }
 
