@@ -100,4 +100,31 @@ describe('Checks API', () => {
       expect(Checks.isNumber('123')).toBe(false)
     })
   })
+
+  describe('isStrictNumber()', () => {
+    it('`Checks.isNumber() を呼び出す`', () => {
+      const isNumberSpy = jest.spyOn(Checks, 'isNumber')
+      Checks.isStrictNumber(123)
+      expect(isNumberSpy).toBeCalledWith(123)
+      isNumberSpy.mockRestore()
+    })
+
+    it('`Checks.isNaN() を呼び出す`', () => {
+      const isNaNSpy = jest.spyOn(Checks, 'isNaN')
+      Checks.isStrictNumber(123)
+      expect(isNaNSpy).toBeCalledWith(123)
+      isNaNSpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isStrictNumber(123)).toBe(true)
+      expect(Checks.isStrictNumber(new Number(123))).toBe(true) // eslint-disable-line no-new-wrappers
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isStrictNumber(NaN)).toBe(false)
+      expect(Checks.isStrictNumber(null)).toBe(false)
+      expect(Checks.isStrictNumber('123')).toBe(false)
+    })
+  })
 })

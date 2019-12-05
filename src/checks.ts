@@ -39,6 +39,15 @@ export const Checks = {
    */
   isNumber(value: unknown): value is number {
     return getObjectTypeName(value) === '[object Number]'
+  },
+
+  /**
+   * 値が厳密に数値か否かを返す
+   * @description `NaN` を `false` とする
+   * @param value
+   */
+  isStrictNumber(value: unknown): value is number {
+    return Checks.isNumber(value) && !Checks.isNaN(value)
   }
 }
 

@@ -127,4 +127,34 @@ describe('Asserts API', () => {
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })
+
+  describe('isStrictNumber()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isStrictNumber)
+      checksAPISpy = jest.spyOn(Checks, 'isStrictNumber')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isStrictNumber()` を呼び出す', () => {
+      assertion(123)
+      expect(checksAPISpy).toHaveBeenCalledWith(123)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(123)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(NaN)).toThrowError('value is not a strict number')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
 })
