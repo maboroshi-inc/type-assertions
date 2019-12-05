@@ -24,6 +24,14 @@ export const Checks = {
   },
 
   /**
+   * 値がBooleanか否かを返す
+   * @param value
+   */
+  isBoolean(value: unknown): value is boolean {
+    return getObjectTypeName(value) === '[object Boolean]'
+  },
+
+  /**
    * 値が `NaN` か否かを返す
    * @alias `Number.isNaN()`
    * @param value
