@@ -57,6 +57,28 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isBoolean()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      Checks.isBoolean(true)
+      expect(getObjectTypeNameSpy).toBeCalledWith(true)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isBoolean(true)).toBe(true)
+      expect(Checks.isBoolean(false)).toBe(true)
+      expect(Checks.isBoolean(Boolean(0))).toBe(true)
+      expect(Checks.isBoolean(Boolean(1))).toBe(true)
+      expect(Checks.isBoolean(Boolean(null))).toBe(true)
+      expect(Checks.isBoolean(new Boolean(0))).toBe(true) // eslint-disable-line no-new-wrappers
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isBoolean(0)).toBe(false)
+      expect(Checks.isBoolean(1)).toBe(false)
+      expect(Checks.isBoolean(null)).toBe(false)
+    })
+  })
+
   describe('isNaN()', () => {
     it('`Checks.isNumber() を呼び出す`', () => {
       const isNumberSpy = jest.spyOn(Checks, 'isNumber')
@@ -98,6 +120,33 @@ describe('Checks API', () => {
     it('`false` を返す', () => {
       expect(Checks.isNumber(null)).toBe(false)
       expect(Checks.isNumber('123')).toBe(false)
+    })
+  })
+
+  describe('isStrictNumber()', () => {
+    it('`Checks.isNumber() を呼び出す`', () => {
+      const isNumberSpy = jest.spyOn(Checks, 'isNumber')
+      Checks.isStrictNumber(123)
+      expect(isNumberSpy).toBeCalledWith(123)
+      isNumberSpy.mockRestore()
+    })
+
+    it('`Checks.isNaN() を呼び出す`', () => {
+      const isNaNSpy = jest.spyOn(Checks, 'isNaN')
+      Checks.isStrictNumber(123)
+      expect(isNaNSpy).toBeCalledWith(123)
+      isNaNSpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isStrictNumber(123)).toBe(true)
+      expect(Checks.isStrictNumber(new Number(123))).toBe(true) // eslint-disable-line no-new-wrappers
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isStrictNumber(NaN)).toBe(false)
+      expect(Checks.isStrictNumber(null)).toBe(false)
+      expect(Checks.isStrictNumber('123')).toBe(false)
     })
   })
 

@@ -28,6 +28,14 @@ export const Checks = {
   },
 
   /**
+   * 値がBooleanか否かを返す
+   * @param value
+   */
+  isBoolean(value: unknown): value is boolean {
+    return getObjectTypeName(value) === '[object Boolean]'
+  },
+
+  /**
    * 値が `NaN` か否かを返す
    * @alias `Number.isNaN()`
    * @param value
@@ -43,6 +51,15 @@ export const Checks = {
    */
   isNumber(value: unknown): value is number {
     return getObjectTypeName(value) === '[object Number]'
+  },
+
+  /**
+   * 値が厳密に数値か否かを返す
+   * @description `NaN` を `false` とする
+   * @param value
+   */
+  isStrictNumber(value: unknown): value is number {
+    return Checks.isNumber(value) && !Checks.isNaN(value)
   },
 
   /**

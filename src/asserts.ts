@@ -25,6 +25,15 @@ export const Asserts = {
   },
 
   /**
+   * 値がBooleanかアサートする
+   * @param value
+   * @throw `value` がBooleanでない
+   */
+  isBoolean(value: unknown): asserts value is boolean {
+    return assert(Checks.isBoolean(value), 'value is not a boolean')
+  },
+
+  /**
    * 値が `NaN` かアサートする
    * @param value
    */
@@ -40,6 +49,16 @@ export const Asserts = {
    */
   isNumber(value: any): asserts value is number {
     return assert(Checks.isNumber(value), 'value is not a number')
+  },
+
+  /**
+   * 値が厳密に数値かアサートする
+   * @description `NaN` を例外とする
+   * @param value
+   * @throw `value` が厳密に数値でない
+   */
+  isStrictNumber(value: unknown): asserts value is number {
+    return assert(Checks.isStrictNumber(value), 'value is not a strict number')
   },
 
   /**
