@@ -26,7 +26,6 @@ export const Checks = {
   /**
    * 値がBooleanか否かを返す
    * @param value
-   * @see https://qiita.com/amamamaou/items/ef0b797156b324bb4ef3#typeof-%E3%81%A0%E3%81%91%E3%81%A7%E5%88%A4%E5%AE%9A%E3%81%97%E3%81%A6%E3%82%82%E6%94%AF%E9%9A%9C%E3%81%8C%E3%81%AA%E3%81%84%E3%82%82%E3%81%AE
    */
   isBoolean(value: unknown): value is boolean {
     return getObjectTypeName(value) === '[object Boolean]'
