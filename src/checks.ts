@@ -1,5 +1,12 @@
 import { getObjectTypeName } from './internal/getObjectTypeName'
 
+/**
+ * unknown なオブジェクトを Thenable なオブジェクトとしてキャストして then にアクセスするための型
+ * @hidden
+ * @example
+ * declare const myValue: unknown
+ * (myValue as MaybeThenable).then // do something
+ */
 type MaybeThenable = {
   then?: unknown
 }
