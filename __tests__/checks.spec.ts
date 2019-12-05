@@ -57,6 +57,22 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isBoolean()', () => {
+    it('`true` を返す', () => {
+      expect(Checks.isBoolean(true)).toBe(true)
+      expect(Checks.isBoolean(false)).toBe(true)
+      expect(Checks.isBoolean(Boolean(0))).toBe(true)
+      expect(Checks.isBoolean(Boolean(1))).toBe(true)
+      expect(Checks.isBoolean(Boolean(null))).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isBoolean(0)).toBe(false)
+      expect(Checks.isBoolean(1)).toBe(false)
+      expect(Checks.isBoolean(null)).toBe(false)
+    })
+  })
+
   describe('isNaN()', () => {
     it('`Checks.isNumber() を呼び出す`', () => {
       const isNumberSpy = jest.spyOn(Checks, 'isNumber')
