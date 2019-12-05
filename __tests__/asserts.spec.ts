@@ -68,6 +68,36 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isBoolean()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isBoolean)
+      checksAPISpy = jest.spyOn(Checks, 'isBoolean')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isBoolean()` を呼び出す', () => {
+      assertion(true)
+      expect(checksAPISpy).toHaveBeenCalledWith(true)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(true)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a boolean')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isNaN()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isNaN)

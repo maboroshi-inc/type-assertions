@@ -25,6 +25,15 @@ export const Asserts = {
   },
 
   /**
+   * 値がBooleanかアサートする
+   * @param value
+   * @throw `value` がBooleanでない
+   */
+  isBoolean(value: unknown): asserts value is boolean {
+    return
+  },
+
+  /**
    * 値が `NaN` かアサートする
    * @param value
    */
