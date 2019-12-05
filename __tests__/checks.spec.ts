@@ -69,6 +69,7 @@ describe('Checks API', () => {
       expect(Checks.isBoolean(Boolean(0))).toBe(true)
       expect(Checks.isBoolean(Boolean(1))).toBe(true)
       expect(Checks.isBoolean(Boolean(null))).toBe(true)
+      expect(Checks.isBoolean(new Boolean(0))).toBe(true) // eslint-disable-line no-new-wrappers
     })
 
     it('`false` を返す', () => {
