@@ -58,6 +58,11 @@ describe('Checks API', () => {
   })
 
   describe('isBoolean()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      Checks.isBoolean(true)
+      expect(getObjectTypeNameSpy).toBeCalledWith(true)
+    })
+
     it('`true` を返す', () => {
       expect(Checks.isBoolean(true)).toBe(true)
       expect(Checks.isBoolean(false)).toBe(true)
