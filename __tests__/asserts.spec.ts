@@ -248,7 +248,7 @@ describe('Asserts API', () => {
       checksAPISpy.mockRestore()
     })
 
-    it('`Checks.isPromise()` を呼び出す', () => {
+    it('`Checks.isPromiseLike()` を呼び出す', () => {
       assertion(Promise.resolve(true))
       expect(checksAPISpy).toHaveBeenCalledWith(Promise.resolve(true))
     })
