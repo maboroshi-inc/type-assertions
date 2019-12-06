@@ -98,6 +98,38 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isDate()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isDate)
+      checksAPISpy = jest.spyOn(Checks, 'isDate')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    const date = new Date('2020-10-10')
+
+    it('`Checks.isDate()` を呼び出す', () => {
+      assertion(date)
+      expect(checksAPISpy).toHaveBeenCalledWith(date)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(date)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a Date')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isNaN()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isNaN)
