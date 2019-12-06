@@ -79,6 +79,23 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isDate()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const date = new Date('2020-10-10')
+      Checks.isDate(date)
+      expect(getObjectTypeNameSpy).toBeCalledWith(date)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isDate(new Date('2020-10-10'))).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isDate('2020-10-10')).toBe(false)
+      expect(Checks.isDate(null)).toBe(false)
+    })
+  })
+
   describe('isNaN()', () => {
     it('`Checks.isNumber() を呼び出す`', () => {
       const isNumberSpy = jest.spyOn(Checks, 'isNumber')
