@@ -39,7 +39,7 @@ export const Asserts = {
    * @throw `value` がDateでない
    */
   isDate(value: unknown): asserts value is Date {
-    return
+    return assert(Checks.isDate(value), 'value is not a Date')
   },
 
   /**
