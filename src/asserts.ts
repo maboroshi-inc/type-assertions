@@ -34,6 +34,15 @@ export const Asserts = {
   },
 
   /**
+   * 値がDateかアサートする
+   * @param value
+   * @throw `value` がDateでない
+   */
+  isDate(value: unknown): asserts value is Date {
+    return assert(Checks.isDate(value), 'value is not a Date')
+  },
+
+  /**
    * 値が `NaN` かアサートする
    * @param value
    */

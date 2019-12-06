@@ -43,6 +43,14 @@ export const Checks = {
   },
 
   /**
+   * 値がDateか否かを返す
+   * @param value
+   */
+  isDate(value: unknown): value is Date {
+    return getObjectTypeName(value) === '[object Date]'
+  },
+
+  /**
    * 値が `NaN` か否かを返す
    * @alias `Number.isNaN()`
    * @param value
