@@ -47,7 +47,7 @@ export const Checks = {
    * @param value
    */
   isDate(value: unknown): value is Date {
-    return true
+    return getObjectTypeName(value) === '[object Date]'
   },
 
   /**
