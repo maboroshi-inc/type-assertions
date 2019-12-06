@@ -149,4 +149,71 @@ describe('Checks API', () => {
       expect(Checks.isStrictNumber('123')).toBe(false)
     })
   })
+
+  describe('isPromise()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      Checks.isPromise(Promise.resolve(123))
+      expect(getObjectTypeNameSpy).toBeCalledWith(Promise.resolve(123))
+    })
+
+    it.each([
+      new Promise(resolve => {
+        resolve()
+      }),
+      Promise.resolve(true),
+      Promise.reject(new Error('rejected'))
+    ])('`true` を返す', promise => {
+      expect(Checks.isPromise(promise)).toBe(true)
+
+      promise.catch(() => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+    })
+
+    it.each([
+      null,
+
+      // thenableなオブジェクト
+      {
+        then(): Promise<unknown> {
+          return Promise.resolve()
+        }
+      }
+    ])('`false` を返す', value => {
+      expect(Checks.isPromise(value)).toBe(false)
+    })
+  })
+
+  describe('isPromiseLike()', () => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    function PromiseLike(): void {}
+
+    PromiseLike.then = (value: unknown): Promise<unknown> =>
+      Promise.resolve(value)
+
+    it.each([
+      new Promise(resolve => {
+        resolve()
+      }),
+      Promise.resolve(true),
+      Promise.reject(new Error('rejected')),
+
+      // thenableなオブジェクト
+      {
+        then(value: unknown): Promise<unknown> {
+          return Promise.resolve(value)
+        }
+      },
+
+      // thenableなオブジェクト
+      // 関数のプロパティに then メソッドがあるケース
+      PromiseLike
+    ])('`true` を返す', promise => {
+      expect(Checks.isPromiseLike(promise)).toBe(true)
+
+      promise.then(null, () => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+    })
+
+    it.each([null])('`false` を返す', value => {
+      expect(Checks.isPromiseLike(value)).toBe(false)
+    })
+  })
 })

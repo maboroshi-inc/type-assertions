@@ -59,6 +59,24 @@ export const Asserts = {
    */
   isStrictNumber(value: unknown): asserts value is number {
     return assert(Checks.isStrictNumber(value), 'value is not a strict number')
+  },
+
+  /**
+   * 値がビルトインの `Promise` オブジェクトかアサートする
+   * @param value
+   * @throw `value` がPromiseでない
+   */
+  isPromise<T>(value: unknown): asserts value is Promise<T> {
+    assert(Checks.isPromise(value), 'value is not a Promise')
+  },
+
+  /**
+   * 値が `PromiseLike` なオブジェクトかアサートする
+   * @param value
+   * @throw `value` がPromiseLikeでない
+   */
+  isPromiseLike<T>(value: unknown): asserts value is PromiseLike<T> {
+    assert(Checks.isPromiseLike(value), 'value is not a PromiseLike')
   }
 }
 

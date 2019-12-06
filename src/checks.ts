@@ -1,6 +1,17 @@
 import { getObjectTypeName } from './internal/getObjectTypeName'
 
 /**
+ * unknown なオブジェクトを Thenable なオブジェクトとしてキャストして then にアクセスするための型
+ * @hidden
+ * @example
+ * declare const myValue: unknown
+ * (myValue as MaybeThenable).then // do something
+ */
+type MaybeThenable = {
+  then?: unknown
+}
+
+/**
  * 型チェックAPI
  * @description 値が指定の方であるか否かを `boolean` で返す
  * @category API
@@ -56,6 +67,30 @@ export const Checks = {
    */
   isStrictNumber(value: unknown): value is number {
     return Checks.isNumber(value) && !Checks.isNaN(value)
+  },
+
+  /**
+   * 値がビルトインの `Promise` オブジェクトか否かを返す
+   * @param value
+   */
+  isPromise<T>(value: unknown): value is Promise<T> {
+    return getObjectTypeName(value) === '[object Promise]'
+  },
+
+  /**
+   * 値が `PromiseLike` なオブジェクトか否かを返す
+   * @param value
+   */
+  isPromiseLike<T>(value: unknown): value is PromiseLike<T> {
+    if (Checks.isPromise(value)) {
+      return true
+    }
+
+    return (
+      !!value &&
+      /** @todo `Checks.isFunction` が実装されたらそれを使う */
+      getObjectTypeName((value as MaybeThenable).then) === '[object Function]'
+    )
   }
 }
 

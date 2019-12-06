@@ -184,6 +184,107 @@ describe('Asserts API', () => {
 
     it('例外を投げる', () => {
       expect(() => assertion(NaN)).toThrowError('value is not a strict number')
+    })
+  })
+
+  describe('isPromise()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isPromise)
+      checksAPISpy = jest.spyOn(Checks, 'isPromise')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isPromise()` を呼び出す', () => {
+      assertion(Promise.resolve(true))
+      expect(checksAPISpy).toHaveBeenCalledWith(Promise.resolve(true))
+    })
+
+    it.each([
+      new Promise(resolve => {
+        resolve()
+      }),
+      Promise.resolve(true),
+      Promise.reject(new Error('rejected'))
+    ])('チェックをパスする', promise => {
+      expect(() => assertion(promise)).not.toThrowError()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+
+      promise.catch(() => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+    })
+
+    it.each([
+      null,
+
+      // thenableなオブジェクト
+      {
+        then(): Promise<unknown> {
+          return Promise.resolve()
+        }
+      }
+    ])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a Promise')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
+  describe('isPromiseLike()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isPromiseLike)
+      checksAPISpy = jest.spyOn(Checks, 'isPromiseLike')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isPromiseLike()` を呼び出す', () => {
+      assertion(Promise.resolve(true))
+      expect(checksAPISpy).toHaveBeenCalledWith(Promise.resolve(true))
+    })
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    function PromiseLike(): void {}
+
+    PromiseLike.then = (value: unknown): Promise<unknown> =>
+      Promise.resolve(value)
+
+    it.each([
+      new Promise(resolve => {
+        resolve()
+      }),
+      Promise.resolve(true),
+      Promise.reject(new Error('rejected')),
+
+      // thenableなオブジェクト
+      {
+        then(value: unknown): Promise<unknown> {
+          return Promise.resolve(value)
+        }
+      },
+
+      // thenableなオブジェクト
+      // 関数のプロパティに then メソッドがあるケース
+      PromiseLike
+    ])('チェックをパスする', promiseLike => {
+      expect(() => assertion(promiseLike)).not.toThrowError()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+
+      promiseLike.then(null, () => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+    })
+
+    it.each([null])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a PromiseLike')
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })
