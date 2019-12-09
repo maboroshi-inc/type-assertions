@@ -99,6 +99,14 @@ export const Checks = {
       /** @todo `Checks.isFunction` が実装されたらそれを使う */
       getObjectTypeName((value as MaybeThenable).then) === '[object Function]'
     )
+  },
+
+  /**
+   * 値が `Map` か否かを返す
+   * @param value
+   */
+  isMap<K, V>(value: unknown): value is Map<K, V> {
+    return getObjectTypeName(value) === '[object Map]'
   }
 }
 

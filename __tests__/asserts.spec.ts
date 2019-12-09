@@ -320,4 +320,41 @@ describe('Asserts API', () => {
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })
+
+  describe('isMap()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isMap)
+      checksAPISpy = jest.spyOn(Checks, 'isMap')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isMap()` を呼び出す', () => {
+      const expected = new Map()
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it.each([new Map()])('チェックをパスする', map => {
+      expect(() => assertion(map)).not.toThrowError()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([
+      Object.create(null), // dictionary
+      new Set(),
+      new WeakMap(),
+      null
+    ])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a Map')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
 })

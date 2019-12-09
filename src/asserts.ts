@@ -86,6 +86,15 @@ export const Asserts = {
    */
   isPromiseLike<T>(value: unknown): asserts value is PromiseLike<T> {
     assert(Checks.isPromiseLike(value), 'value is not a PromiseLike')
+  },
+
+  /**
+   * 値が `Map` かアサートする
+   * @param value
+   * @throw `value` が `Map` でない
+   */
+  isMap<K, V>(value: unknown): asserts value is Map<K, V> {
+    assert(Checks.isMap(value), 'value is not a Map')
   }
 }
 
