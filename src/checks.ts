@@ -55,7 +55,7 @@ export const Checks = {
    * @param value
    */
   isInteger(value: unknown): value is number {
-    return true
+    return Checks.isNumber(value) && Number.isInteger(value)
   },
 
   /**
