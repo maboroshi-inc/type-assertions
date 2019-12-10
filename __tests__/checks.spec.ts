@@ -96,36 +96,6 @@ describe('Checks API', () => {
     })
   })
 
-  describe('isFiniteNumber()', () => {
-    it('`Checks.isNumber() を呼び出す`', () => {
-      const isNumberSpy = jest.spyOn(Checks, 'isNumber')
-      Checks.isFiniteNumber(NaN)
-      expect(isNumberSpy).toBeCalledWith(NaN)
-      isNumberSpy.mockRestore()
-    })
-
-    it('`Number.isFinite() を呼び出す`', () => {
-      const isFiniteSpy = jest.spyOn(Number, 'isFinite')
-      Checks.isFiniteNumber(0)
-      expect(isFiniteSpy).toBeCalledWith(0)
-      isFiniteSpy.mockRestore()
-    })
-
-    it('`true` を返す', () => {
-      expect(Checks.isFiniteNumber(0)).toBe(true)
-      expect(Checks.isFiniteNumber(1)).toBe(true)
-      expect(Checks.isFiniteNumber(2e64)).toBe(true)
-    })
-
-    it('`false` を返す', () => {
-      expect(Checks.isFiniteNumber(Infinity)).toBe(false)
-      expect(Checks.isFiniteNumber(-Infinity)).toBe(false)
-      expect(Checks.isFiniteNumber(NaN)).toBe(false)
-      expect(Checks.isFiniteNumber('0')).toBe(false)
-      expect(Checks.isFiniteNumber(null)).toBe(false)
-    })
-  })
-
   describe('isNaN()', () => {
     it('`Checks.isNumber() を呼び出す`', () => {
       const isNumberSpy = jest.spyOn(Checks, 'isNumber')
