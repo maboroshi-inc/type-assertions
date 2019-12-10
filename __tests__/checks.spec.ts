@@ -121,6 +121,7 @@ describe('Checks API', () => {
       expect(Checks.isFiniteNumber(Infinity)).toBe(false)
       expect(Checks.isFiniteNumber(-Infinity)).toBe(false)
       expect(Checks.isFiniteNumber(NaN)).toBe(false)
+      expect(Checks.isFiniteNumber('0')).toBe(false)
       expect(Checks.isFiniteNumber(null)).toBe(false)
     })
   })
