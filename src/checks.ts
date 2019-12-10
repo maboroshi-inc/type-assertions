@@ -51,6 +51,14 @@ export const Checks = {
   },
 
   /**
+   * 値が有限数か否かを返す
+   * @param value
+   */
+  isFiniteNumber(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isFinite(value)
+  },
+
+  /**
    * 値が `NaN` か否かを返す
    * @alias `Number.isNaN()`
    * @param value
