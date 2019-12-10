@@ -51,6 +51,14 @@ export const Checks = {
   },
 
   /**
+   * 値がErrorか否かを返す
+   * @param value
+   */
+  isError(value: unknown): value is Error {
+    return true
+  },
+
+  /**
    * 値が `NaN` か否かを返す
    * @alias `Number.isNaN()`
    * @param value
