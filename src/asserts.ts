@@ -48,7 +48,7 @@ export const Asserts = {
    * @throw `value` が有限数でない
    */
   isFiniteNumber(value: unknown): asserts value is number {
-    return
+    return assert(Checks.isFiniteNumber(value), 'value is not a finite number')
   },
 
   /**
