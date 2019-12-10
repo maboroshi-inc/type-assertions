@@ -130,6 +130,38 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isError()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isError)
+      checksAPISpy = jest.spyOn(Checks, 'isError')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    const error = new Error()
+
+    it('`Checks.isError()` を呼び出す', () => {
+      assertion(error)
+      expect(checksAPISpy).toHaveBeenCalledWith(error)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(error)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a Error')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isNaN()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isNaN)

@@ -43,6 +43,15 @@ export const Asserts = {
   },
 
   /**
+   * 値がErrorかアサートする
+   * @param value
+   * @throw `value` がErrorでない
+   */
+  isError(value: unknown): asserts value is Error {
+    return
+  },
+
+  /**
    * 値が `NaN` かアサートする
    * @param value
    */
