@@ -157,7 +157,7 @@ describe('Asserts API', () => {
     })
 
     it('例外を投げる', () => {
-      expect(() => assertion(null)).toThrowError('value is not a Error')
+      expect(() => assertion(null)).toThrowError('value is not an Error')
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })

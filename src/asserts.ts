@@ -48,7 +48,7 @@ export const Asserts = {
    * @throw `value` がErrorでない
    */
   isError(value: unknown): asserts value is Error {
-    return
+    return assert(Checks.isError(value), 'value is not an Error')
   },
 
   /**
