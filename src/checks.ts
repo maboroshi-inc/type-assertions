@@ -55,7 +55,7 @@ export const Checks = {
    * @param value
    */
   isError(value: unknown): value is Error {
-    return true
+    return getObjectTypeName(value) === '[object Error]'
   },
 
   /**
