@@ -155,7 +155,7 @@ describe('Asserts API', () => {
     })
 
     it('例外を投げる', () => {
-      expect(() => assertion(null)).toThrowError('value is not a integer')
+      expect(() => assertion(null)).toThrowError('value is not an integer')
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })

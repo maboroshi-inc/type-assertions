@@ -48,7 +48,7 @@ export const Asserts = {
    * @throw `value` が整数でない
    */
   isInteger(value: unknown): asserts value is number {
-    return
+    return assert(Checks.isInteger(value), 'value is not an integer')
   },
 
   /**
