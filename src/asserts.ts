@@ -43,6 +43,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が有限数かアサートする
+   * @param value
+   * @throw `value` が有限数でない
+   */
+  isFiniteNumber(value: unknown): asserts value is number {
+    return assert(Checks.isFiniteNumber(value), 'value is not a finite number')
+  },
+
+  /**
    * 値が `NaN` かアサートする
    * @param value
    */
