@@ -107,7 +107,7 @@ describe('Checks API', () => {
     it('`Number.isFinite() を呼び出す`', () => {
       const isFiniteSpy = jest.spyOn(Number, 'isFinite')
       Checks.isFiniteNumber(0)
-      expect(isFinite).toBeCalledWith(0)
+      expect(isFiniteSpy).toBeCalledWith(0)
       isFiniteSpy.mockRestore()
     })
 
