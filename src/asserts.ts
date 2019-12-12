@@ -56,7 +56,7 @@ export const Asserts = {
    * @throw `value` が `null` でない
    */
   isNull(value: unknown): asserts value is null {
-    return
+    return assert(Checks.isNull(value), 'value is not a null')
   },
 
   /**
