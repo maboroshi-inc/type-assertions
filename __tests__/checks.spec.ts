@@ -96,6 +96,22 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isError()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const error = new Error()
+      Checks.isError(error)
+      expect(getObjectTypeNameSpy).toBeCalledWith(error)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isError(new Error())).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isError(null)).toBe(false)
+    })
+  })
+
   describe('isInteger()', () => {
     it('`Checks.isNumber() を呼び出す`', () => {
       const isNumberSpy = jest.spyOn(Checks, 'isNumber')
