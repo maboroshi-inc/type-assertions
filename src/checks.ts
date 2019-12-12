@@ -52,6 +52,7 @@ export const Checks = {
 
   /**
    * 値が整数か否かを返す
+   * @alias `Number.isInteger()`
    * @param value
    */
   isInteger(value: unknown): value is number {
