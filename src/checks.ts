@@ -59,6 +59,15 @@ export const Checks = {
   },
 
   /**
+   * 値が整数か否かを返す
+   * @alias `Number.isInteger()`
+   * @param value
+   */
+  isInteger(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isInteger(value)
+  },
+
+  /**
    * 値が `NaN` か否かを返す
    * @alias `Number.isNaN()`
    * @param value
