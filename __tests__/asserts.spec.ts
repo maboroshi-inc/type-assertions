@@ -130,6 +130,36 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isInteger()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isInteger)
+      checksAPISpy = jest.spyOn(Checks, 'isInteger')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isInteger()` を呼び出す', () => {
+      assertion(0)
+      expect(checksAPISpy).toHaveBeenCalledWith(0)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(0)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not an integer')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isNaN()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isNaN)

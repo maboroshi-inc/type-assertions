@@ -43,6 +43,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が整数かアサートする
+   * @param value
+   * @throw `value` が整数でない
+   */
+  isInteger(value: unknown): asserts value is number {
+    return assert(Checks.isInteger(value), 'value is not an integer')
+  },
+
+  /**
    * 値が `NaN` かアサートする
    * @param value
    */
