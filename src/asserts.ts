@@ -51,6 +51,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が `null` かアサートする
+   * @param value
+   * @throw `value` が `null` でない
+   */
+  isNull(value: unknown): asserts value is null {
+    return
+  },
+
+  /**
    * 値が数値かアサートする
    * @description `NaN` を許容する
    * @param value

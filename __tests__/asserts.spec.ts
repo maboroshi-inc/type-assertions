@@ -160,6 +160,36 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isNull()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isNull)
+      checksAPISpy = jest.spyOn(Checks, 'isNull')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isNull()` を呼び出す', () => {
+      assertion(null)
+      expect(checksAPISpy).toHaveBeenCalledWith(null)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(null)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(undefined)).toThrowError('value is not a null')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isNumber()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isNumber)
