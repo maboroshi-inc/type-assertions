@@ -22,7 +22,7 @@ export const Checks = {
    * @alias `Array.isArray()`
    * @param value
    */
-  isArray<T>(value: unknown): value is T[] {
+  isArray(value: unknown): value is unknown[] {
     return Array.isArray(value)
   },
 
