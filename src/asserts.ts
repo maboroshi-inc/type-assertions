@@ -107,6 +107,15 @@ export const Asserts = {
   },
 
   /**
+   * 値がビルトインのobjectかアサートする
+   * @param value
+   * @throw `value` がobjectでない
+   */
+  isObject(value: unknown): asserts value is object {
+    return
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトかアサートする
    * @param value
    * @throw `value` がPromiseでない
