@@ -51,12 +51,29 @@ export const Checks = {
   },
 
   /**
+   * 値がErrorか否かを返す
+   * @param value
+   */
+  isError(value: unknown): value is Error {
+    return getObjectTypeName(value) === '[object Error]'
+  },
+
+  /**
    * 値が有限数か否かを返す
    * @alias `Number.isFinite()`
    * @param value
    */
   isFiniteNumber(value: unknown): value is number {
     return Checks.isNumber(value) && Number.isFinite(value)
+  },
+
+  /**
+   * 値が整数か否かを返す
+   * @alias `Number.isInteger()`
+   * @param value
+   */
+  isInteger(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isInteger(value)
   },
 
   /**

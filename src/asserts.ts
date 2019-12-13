@@ -43,12 +43,30 @@ export const Asserts = {
   },
 
   /**
+   * 値がErrorかアサートする
+   * @param value
+   * @throw `value` がErrorでない
+   */
+  isError(value: unknown): asserts value is Error {
+    return assert(Checks.isError(value), 'value is not an Error')
+  },
+
+  /**
    * 値が有限数かアサートする
    * @param value
    * @throw `value` が有限数でない
    */
   isFiniteNumber(value: unknown): asserts value is number {
     return assert(Checks.isFiniteNumber(value), 'value is not a finite number')
+  },
+
+  /**
+   * 値が整数かアサートする
+   * @param value
+   * @throw `value` が整数でない
+   */
+  isInteger(value: unknown): asserts value is number {
+    return assert(Checks.isInteger(value), 'value is not an integer')
   },
 
   /**
