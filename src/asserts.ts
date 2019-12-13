@@ -93,7 +93,7 @@ export const Asserts = {
    * @param value
    * @throw `value` が `Map` でない
    */
-  isMap<K, V>(value: unknown): asserts value is Map<K, V> {
+  isMap(value: unknown): asserts value is Map<unknown, unknown> {
     assert(Checks.isMap(value), 'value is not a Map')
   }
 }

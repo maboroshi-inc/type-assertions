@@ -105,7 +105,7 @@ export const Checks = {
    * 値が `Map` か否かを返す
    * @param value
    */
-  isMap<K, V>(value: unknown): value is Map<K, V> {
+  isMap(value: unknown): value is Map<unknown, unknown> {
     return getObjectTypeName(value) === '[object Map]'
   }
 }
