@@ -11,8 +11,8 @@ export const Asserts = {
    * 値が配列かアサートする
    * @param value
    */
-  isArray<T>(value: unknown): asserts value is T[] {
-    return assert(Checks.isArray<T>(value), 'value is not an array')
+  isArray(value: unknown): asserts value is unknown[] {
+    return assert(Checks.isArray(value), 'value is not an array')
   },
 
   /**
