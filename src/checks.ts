@@ -116,7 +116,7 @@ export const Checks = {
    * @param value
    */
   isObject(value: unknown): value is object {
-    return true
+    return getObjectTypeName(value) === '[object Object]'
   },
 
   /**
