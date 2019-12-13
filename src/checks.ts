@@ -59,6 +59,15 @@ export const Checks = {
   },
 
   /**
+   * 値が有限数か否かを返す
+   * @alias `Number.isFinite()`
+   * @param value
+   */
+  isFiniteNumber(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isFinite(value)
+  },
+
+  /**
    * 値が整数か否かを返す
    * @alias `Number.isInteger()`
    * @param value

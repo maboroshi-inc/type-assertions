@@ -162,6 +162,38 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isFiniteNumber()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isFiniteNumber)
+      checksAPISpy = jest.spyOn(Checks, 'isFiniteNumber')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isFiniteNumber()` を呼び出す', () => {
+      assertion(0)
+      expect(checksAPISpy).toHaveBeenCalledWith(0)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(0)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(Infinity)).toThrowError(
+        'value is not a finite number'
+      )
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isInteger()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isInteger)
