@@ -86,6 +86,14 @@ export const Checks = {
   },
 
   /**
+   * 値が `null` か否かを返す
+   * @param value
+   */
+  isNull(value: unknown): value is null {
+    return value === null
+  },
+
+  /**
    * 値が数値か否かを返す
    * @description `NaN` を `true` とする
    * @param value

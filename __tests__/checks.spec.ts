@@ -201,6 +201,16 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isNull()', () => {
+    it('`true` を返す', () => {
+      expect(Checks.isNull(null)).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isNull(undefined)).toBe(false)
+    })
+  })
+
   describe('isNumber()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       Checks.isNumber(123)
