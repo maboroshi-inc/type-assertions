@@ -256,6 +256,34 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isObject()', () => {
+    const object = { key: 'VALUE' }
+    class DummyClassForIsObjectTesting {
+      key = 'VALUE'
+    }
+
+    it('`getObjectTypeName()` を呼び出す', () => {
+      Checks.isObject(object)
+      expect(getObjectTypeNameSpy).toBeCalledWith(object)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isObject(object)).toBe(true)
+      expect(Checks.isObject({})).toBe(true)
+      expect(Checks.isObject(Object.create(object))).toBe(true)
+      expect(Checks.isObject(Object.create(null))).toBe(true)
+      expect(Checks.isObject(new DummyClassForIsObjectTesting())).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isObject(null)).toBe(false)
+      expect(Checks.isObject([])).toBe(false)
+      expect(Checks.isObject(() => undefined)).toBe(false)
+      expect(Checks.isObject(new Map())).toBe(false)
+      expect(Checks.isObject(new Set())).toBe(false)
+    })
+  })
+
   describe('isPromise()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       Checks.isPromise(Promise.resolve(123))

@@ -112,6 +112,14 @@ export const Checks = {
   },
 
   /**
+   * 値がobjectか否かを返す
+   * @param value
+   */
+  isObject(value: unknown): value is object {
+    return true
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトか否かを返す
    * @param value
    */
