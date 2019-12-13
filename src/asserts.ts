@@ -131,6 +131,15 @@ export const Asserts = {
    */
   isMap(value: unknown): asserts value is Map<unknown, unknown> {
     assert(Checks.isMap(value), 'value is not a Map')
+  },
+
+  /**
+   * 値が `Set` かアサートする
+   * @param value
+   * @throw `value` が `Set` でない
+   */
+  isSet(value: unknown): asserts value is Set<unknown> {
+    assert(Checks.isSet(value), 'value is not a Set')
   }
 }
 

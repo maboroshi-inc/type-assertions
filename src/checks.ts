@@ -141,6 +141,14 @@ export const Checks = {
    */
   isMap(value: unknown): value is Map<unknown, unknown> {
     return getObjectTypeName(value) === '[object Map]'
+  },
+
+  /**
+   * 値が `Set` か否かを返す
+   * @param value
+   */
+  isSet(value: unknown): value is Set<unknown> {
+    return getObjectTypeName(value) === '[object Set]'
   }
 }
 

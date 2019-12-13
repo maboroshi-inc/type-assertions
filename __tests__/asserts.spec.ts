@@ -481,4 +481,36 @@ describe('Asserts API', () => {
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })
+
+  describe('isSet()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isSet)
+      checksAPISpy = jest.spyOn(Checks, 'isSet')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isSet()` を呼び出す', () => {
+      const expected = new Set()
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it.each([new Set()])('チェックをパスする', value => {
+      expect(() => assertion(value)).not.toThrowError()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([[], new WeakSet(), null])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a Set')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
 })
