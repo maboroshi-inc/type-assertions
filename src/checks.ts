@@ -90,7 +90,7 @@ export const Checks = {
    * @param value
    */
   isNull(value: unknown): value is null {
-    return getObjectTypeName(value) === '[object Null]'
+    return value === null
   },
 
   /**
