@@ -312,4 +312,26 @@ describe('Checks API', () => {
       expect(Checks.isPromiseLike(value)).toBe(false)
     })
   })
+
+  describe('isMap()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = new Map()
+
+      Checks.isMap(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it.each([new Map()])('`true` を返す', map => {
+      expect(Checks.isMap(map)).toBe(true)
+    })
+
+    it.each([
+      Object.create(null), // dictionary
+      new Set(),
+      new WeakMap(),
+      null
+    ])('`false` を返す', value => {
+      expect(Checks.isMap(value)).toBe(false)
+    })
+  })
 })

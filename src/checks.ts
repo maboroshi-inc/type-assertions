@@ -22,7 +22,7 @@ export const Checks = {
    * @alias `Array.isArray()`
    * @param value
    */
-  isArray<T>(value: unknown): value is T[] {
+  isArray(value: unknown): value is unknown[] {
     return Array.isArray(value)
   },
 
@@ -125,6 +125,14 @@ export const Checks = {
       /** @todo `Checks.isFunction` が実装されたらそれを使う */
       getObjectTypeName((value as MaybeThenable).then) === '[object Function]'
     )
+  },
+
+  /**
+   * 値が `Map` か否かを返す
+   * @param value
+   */
+  isMap(value: unknown): value is Map<unknown, unknown> {
+    return getObjectTypeName(value) === '[object Map]'
   }
 }
 

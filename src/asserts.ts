@@ -11,8 +11,8 @@ export const Asserts = {
    * 値が配列かアサートする
    * @param value
    */
-  isArray<T>(value: unknown): asserts value is T[] {
-    return assert(Checks.isArray<T>(value), 'value is not an array')
+  isArray(value: unknown): asserts value is unknown[] {
+    return assert(Checks.isArray(value), 'value is not an array')
   },
 
   /**
@@ -113,6 +113,15 @@ export const Asserts = {
    */
   isPromiseLike<T>(value: unknown): asserts value is PromiseLike<T> {
     assert(Checks.isPromiseLike(value), 'value is not a PromiseLike')
+  },
+
+  /**
+   * 値が `Map` かアサートする
+   * @param value
+   * @throw `value` が `Map` でない
+   */
+  isMap(value: unknown): asserts value is Map<unknown, unknown> {
+    assert(Checks.isMap(value), 'value is not a Map')
   }
 }
 
