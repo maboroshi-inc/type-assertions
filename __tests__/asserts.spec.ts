@@ -481,4 +481,42 @@ describe('Asserts API', () => {
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })
+
+  describe('isWeakMap()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isWeakMap)
+      checksAPISpy = jest.spyOn(Checks, 'isWeakMap')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isWeakMap()` を呼び出す', () => {
+      const expected = new WeakMap()
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it.each([new WeakMap()])('チェックをパスする', value => {
+      expect(() => assertion(value)).not.toThrowError()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([
+      Object.create(null), // dictionary
+      new Set(),
+      new Map(),
+      new WeakSet(),
+      null
+    ])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a WeakMap')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
 })
