@@ -102,7 +102,7 @@ export const Asserts = {
    * @param value
    * @throw `value` がPromiseでない
    */
-  isPromise<T>(value: unknown): asserts value is Promise<T> {
+  isPromise(value: unknown): asserts value is Promise<unknown> {
     assert(Checks.isPromise(value), 'value is not a Promise')
   },
 
@@ -111,7 +111,7 @@ export const Asserts = {
    * @param value
    * @throw `value` がPromiseLikeでない
    */
-  isPromiseLike<T>(value: unknown): asserts value is PromiseLike<T> {
+  isPromiseLike(value: unknown): asserts value is PromiseLike<unknown> {
     assert(Checks.isPromiseLike(value), 'value is not a PromiseLike')
   },
 
