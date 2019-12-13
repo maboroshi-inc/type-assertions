@@ -112,7 +112,7 @@ export const Asserts = {
    * @throw `value` がobjectでない
    */
   isObject(value: unknown): asserts value is object {
-    return
+    return assert(Checks.isObject(value), 'value is not an object')
   },
 
   /**
