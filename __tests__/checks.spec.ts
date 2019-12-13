@@ -238,7 +238,7 @@ describe('Checks API', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const expected = new Map()
 
-      Checks.isPromise(expected)
+      Checks.isMap(expected)
       expect(getObjectTypeNameSpy).toBeCalledWith(expected)
     })
 
@@ -252,7 +252,7 @@ describe('Checks API', () => {
       new WeakMap(),
       null
     ])('`false` を返す', value => {
-      expect(Checks.isPromise(value)).toBe(false)
+      expect(Checks.isMap(value)).toBe(false)
     })
   })
 })
