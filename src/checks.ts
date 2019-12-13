@@ -22,7 +22,7 @@ export const Checks = {
    * @alias `Array.isArray()`
    * @param value
    */
-  isArray<T>(value: unknown): value is T[] {
+  isArray(value: unknown): value is unknown[] {
     return Array.isArray(value)
   },
 
@@ -48,6 +48,32 @@ export const Checks = {
    */
   isDate(value: unknown): value is Date {
     return getObjectTypeName(value) === '[object Date]'
+  },
+
+  /**
+   * 値がErrorか否かを返す
+   * @param value
+   */
+  isError(value: unknown): value is Error {
+    return getObjectTypeName(value) === '[object Error]'
+  },
+
+  /**
+   * 値が有限数か否かを返す
+   * @alias `Number.isFinite()`
+   * @param value
+   */
+  isFiniteNumber(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isFinite(value)
+  },
+
+  /**
+   * 値が整数か否かを返す
+   * @alias `Number.isInteger()`
+   * @param value
+   */
+  isInteger(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isInteger(value)
   },
 
   /**
@@ -107,6 +133,14 @@ export const Checks = {
       /** @todo `Checks.isFunction` が実装されたらそれを使う */
       getObjectTypeName((value as MaybeThenable).then) === '[object Function]'
     )
+  },
+
+  /**
+   * 値が `Map` か否かを返す
+   * @param value
+   */
+  isMap(value: unknown): value is Map<unknown, unknown> {
+    return getObjectTypeName(value) === '[object Map]'
   }
 }
 

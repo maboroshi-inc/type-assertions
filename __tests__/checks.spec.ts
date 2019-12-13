@@ -96,6 +96,85 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isError()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const error = new Error()
+      Checks.isError(error)
+      expect(getObjectTypeNameSpy).toBeCalledWith(error)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isError(new Error())).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isError(null)).toBe(false)
+    })
+  })
+
+  describe('isFiniteNumber()', () => {
+    it('`Checks.isNumber() を呼び出す`', () => {
+      const isNumberSpy = jest.spyOn(Checks, 'isNumber')
+      Checks.isFiniteNumber(NaN)
+      expect(isNumberSpy).toBeCalledWith(NaN)
+      isNumberSpy.mockRestore()
+    })
+
+    it('`Number.isFinite() を呼び出す`', () => {
+      const isFiniteSpy = jest.spyOn(Number, 'isFinite')
+      Checks.isFiniteNumber(0)
+      expect(isFiniteSpy).toBeCalledWith(0)
+      isFiniteSpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isFiniteNumber(0)).toBe(true)
+      expect(Checks.isFiniteNumber(1)).toBe(true)
+      expect(Checks.isFiniteNumber(2e64)).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isFiniteNumber(Infinity)).toBe(false)
+      expect(Checks.isFiniteNumber(-Infinity)).toBe(false)
+      expect(Checks.isFiniteNumber(NaN)).toBe(false)
+      expect(Checks.isFiniteNumber('0')).toBe(false)
+      expect(Checks.isFiniteNumber(null)).toBe(false)
+    })
+  })
+
+  describe('isInteger()', () => {
+    it('`Checks.isNumber() を呼び出す`', () => {
+      const isNumberSpy = jest.spyOn(Checks, 'isNumber')
+      Checks.isInteger(0)
+      expect(isNumberSpy).toBeCalledWith(0)
+      isNumberSpy.mockRestore()
+    })
+
+    it('`Number.isInteger() を呼び出す`', () => {
+      const isIntegerSpy = jest.spyOn(Number, 'isInteger')
+      Checks.isInteger(NaN)
+      expect(isIntegerSpy).toBeCalledWith(NaN)
+      isIntegerSpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isInteger(0)).toBe(true)
+      expect(Checks.isInteger(1)).toBe(true)
+      expect(Checks.isInteger(-100000)).toBe(true)
+      expect(Checks.isInteger(99999999999999999999999)).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isInteger(0.1)).toBe(false)
+      expect(Checks.isInteger(Math.PI)).toBe(false)
+      expect(Checks.isInteger(NaN)).toBe(false)
+      expect(Checks.isInteger(Infinity)).toBe(false)
+      expect(Checks.isInteger(-Infinity)).toBe(false)
+      expect(Checks.isInteger('10')).toBe(false)
+      expect(Checks.isInteger(null)).toBe(false)
+    })
+  })
+
   describe('isNaN()', () => {
     it('`Checks.isNumber() を呼び出す`', () => {
       const isNumberSpy = jest.spyOn(Checks, 'isNumber')
@@ -246,6 +325,28 @@ describe('Checks API', () => {
 
     it.each([null])('`false` を返す', value => {
       expect(Checks.isPromiseLike(value)).toBe(false)
+    })
+  })
+
+  describe('isMap()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = new Map()
+
+      Checks.isMap(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it.each([new Map()])('`true` を返す', map => {
+      expect(Checks.isMap(map)).toBe(true)
+    })
+
+    it.each([
+      Object.create(null), // dictionary
+      new Set(),
+      new WeakMap(),
+      null
+    ])('`false` を返す', value => {
+      expect(Checks.isMap(value)).toBe(false)
     })
   })
 })
