@@ -125,6 +125,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が正規表現オブジェクトかアサートする
+   * @param value
+   * @throw `value` が正規表現オブジェクトでない
+   */
+  isRegExp(value: unknown): asserts value is RegExp {
+    return assert(Checks.isRegExp(value), 'value is not a RegExp')
+  },
+
+  /**
    * 値が `Map` かアサートする
    * @param value
    * @throw `value` が `Map` でない
