@@ -140,7 +140,7 @@ export const Checks = {
    * @param value
    */
   isRegExp(value: unknown): value is RegExp {
-    return true
+    return getObjectTypeName(value) === '[object RegExp]'
   },
 
   /**
