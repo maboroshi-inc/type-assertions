@@ -141,6 +141,14 @@ export const Checks = {
    */
   isMap(value: unknown): value is Map<unknown, unknown> {
     return getObjectTypeName(value) === '[object Map]'
+  },
+
+  /**
+   * 値が `WeakMap` か否かを返す
+   * @param value
+   */
+  isWeakMap(value: unknown): value is WeakMap<object, unknown> {
+    return getObjectTypeName(value) === '[object WeakMap]'
   }
 }
 
