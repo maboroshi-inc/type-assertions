@@ -144,6 +144,14 @@ export const Checks = {
   },
 
   /**
+   * 値が `WeakMap` か否かを返す
+   * @param value
+   */
+  isWeakMap(value: unknown): value is WeakMap<object, unknown> {
+    return getObjectTypeName(value) === '[object WeakMap]'
+  },
+
+  /**
    * 値が `Set` か否かを返す
    * @param value
    */

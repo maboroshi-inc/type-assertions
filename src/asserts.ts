@@ -134,6 +134,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が `WeakMap` かアサートする
+   * @param value
+   * @throw `value` が `WeakMap` でない
+   */
+  isWeakMap(value: unknown): asserts value is WeakMap<object, unknown> {
+    assert(Checks.isWeakMap(value), 'value is not a WeakMap')
+  },
+
+  /**
    * 値が `Set` かアサートする
    * @param value
    * @throw `value` が `Set` でない
