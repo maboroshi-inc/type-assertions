@@ -367,4 +367,21 @@ describe('Checks API', () => {
       expect(Checks.isWeakMap(value)).toBe(false)
     })
   })
+
+  describe('isSet()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = new Set()
+
+      Checks.isSet(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it.each([new Set()])('`true` を返す', value => {
+      expect(Checks.isSet(value)).toBe(true)
+    })
+
+    it.each([[], new WeakSet(), null])('`false` を返す', value => {
+      expect(Checks.isSet(value)).toBe(false)
+    })
+  })
 })
