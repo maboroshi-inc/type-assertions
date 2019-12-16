@@ -157,6 +157,14 @@ export const Checks = {
    */
   isSet(value: unknown): value is Set<unknown> {
     return getObjectTypeName(value) === '[object Set]'
+  },
+
+  /**
+   * 値が `WeakSet` か否かを返す
+   * @param value
+   */
+  isWeakSet(value: unknown): value is WeakSet<object> {
+    return getObjectTypeName(value) === '[object WeakSet]'
   }
 }
 
