@@ -130,6 +130,41 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isValidDate()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isValidDate)
+      checksAPISpy = jest.spyOn(Checks, 'isValidDate')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isValidDate()` を呼び出す', () => {
+      const date = new Date('2020-10-10')
+
+      assertion(date)
+      expect(checksAPISpy).toHaveBeenCalledWith(date)
+    })
+
+    it.each([new Date(), new Date('2020-10-10')])(
+      '%o => `void` を返す',
+      value => {
+        expect(() => assertion(value)).not.toThrowError()
+        expect(checksAPISpy).toHaveReturnedWith(true)
+      }
+    )
+
+    it.each([new Date('20201010'), null])('%o => 例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a valid Date')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isError()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isError)
