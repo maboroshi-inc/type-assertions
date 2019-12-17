@@ -117,7 +117,7 @@ export const Checks = {
    * @param value
    */
   isObject(value: unknown): value is object {
-    return getObjectTypeName(value) === '[object Object]'
+    return typeof value === 'object' && !Checks.isNull(value)
   },
 
   /**
