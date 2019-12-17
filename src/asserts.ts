@@ -167,6 +167,15 @@ export const Asserts = {
    */
   isSet(value: unknown): asserts value is Set<unknown> {
     assert(Checks.isSet(value), 'value is not a Set')
+  },
+
+  /**
+   * 値が `WeakSet` かアサートする
+   * @param value
+   * @throw `value` が `WeakSet` でない
+   */
+  isWeakSet(value: unknown): asserts value is WeakSet<object> {
+    assert(Checks.isWeakSet(value), 'value is not a WeakSet')
   }
 }
 

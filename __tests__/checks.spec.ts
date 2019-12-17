@@ -444,4 +444,21 @@ describe('Checks API', () => {
       expect(Checks.isSet(value)).toBe(false)
     })
   })
+
+  describe('isWeakSet()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = new WeakSet()
+
+      Checks.isWeakSet(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it.each([new WeakSet()])('`true` を返す', value => {
+      expect(Checks.isWeakSet(value)).toBe(true)
+    })
+
+    it.each([[], new Set(), null])('`false` を返す', value => {
+      expect(Checks.isWeakSet(value)).toBe(false)
+    })
+  })
 })

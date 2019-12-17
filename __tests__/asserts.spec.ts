@@ -613,4 +613,36 @@ describe('Asserts API', () => {
       expect(checksAPISpy).toHaveReturnedWith(false)
     })
   })
+
+  describe('isWeakSet()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isWeakSet)
+      checksAPISpy = jest.spyOn(Checks, 'isWeakSet')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isWeakSet()` を呼び出す', () => {
+      const expected = new WeakSet()
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it.each([new WeakSet()])('チェックをパスする', value => {
+      expect(() => assertion(value)).not.toThrowError()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([[], new Set(), null])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a WeakSet')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
 })
