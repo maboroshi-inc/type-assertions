@@ -262,25 +262,38 @@ describe('Checks API', () => {
       key = 'VALUE'
     }
 
-    it('`getObjectTypeName()` を呼び出す', () => {
+    it('`Checks.isNull() を呼び出す`', () => {
+      const isNullSpy = jest.spyOn(Checks, 'isNull')
       Checks.isObject(object)
-      expect(getObjectTypeNameSpy).toBeCalledWith(object)
+      expect(isNullSpy).toBeCalledWith(object)
+      isNullSpy.mockRestore()
     })
 
-    it('`true` を返す', () => {
-      expect(Checks.isObject(object)).toBe(true)
-      expect(Checks.isObject({})).toBe(true)
-      expect(Checks.isObject(Object.create(object))).toBe(true)
-      expect(Checks.isObject(Object.create(null))).toBe(true)
-      expect(Checks.isObject(new DummyClassForIsObjectTesting())).toBe(true)
+    it.each([
+      object,
+      [],
+      new Boolean(0), // eslint-disable-line no-new-wrappers
+      new Number(123), // eslint-disable-line no-new-wrappers
+      new String('string'), // eslint-disable-line no-new-wrappers
+      new Map(),
+      new Set(),
+      new DummyClassForIsObjectTesting()
+    ])('`true` を返す', value => {
+      expect(Checks.isObject(value)).toBe(true)
     })
 
-    it('`false` を返す', () => {
-      expect(Checks.isObject(null)).toBe(false)
-      expect(Checks.isObject([])).toBe(false)
-      expect(Checks.isObject(() => undefined)).toBe(false)
-      expect(Checks.isObject(new Map())).toBe(false)
-      expect(Checks.isObject(new Set())).toBe(false)
+    it.each([
+      undefined,
+      null,
+      123,
+      NaN,
+      'string',
+      true,
+      false,
+      Symbol('symbol'),
+      (): void => undefined
+    ])('`false` を返す', value => {
+      expect(Checks.isObject(value)).toBe(false)
     })
   })
 

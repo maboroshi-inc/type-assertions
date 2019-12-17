@@ -113,6 +113,7 @@ export const Checks = {
 
   /**
    * 値がobjectか否かを返す
+   * @description `null` 及びプリミティブ値以外をすべて `true` とする
    * @param value
    */
   isObject(value: unknown): value is object {
