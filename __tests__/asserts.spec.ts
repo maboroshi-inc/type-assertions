@@ -445,6 +445,37 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isRegExp', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isRegExp)
+      checksAPISpy = jest.spyOn(Checks, 'isRegExp')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isRegExp()` を呼び出す', () => {
+      const expected = /^.+$/
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(/^.+$/)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a RegExp')
+    })
+  })
+
   describe('isMap()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isMap)

@@ -136,6 +136,14 @@ export const Checks = {
   },
 
   /**
+   * 値が正規表現オブジェクトか否かを返す
+   * @param value
+   */
+  isRegExp(value: unknown): value is RegExp {
+    return getObjectTypeName(value) === '[object RegExp]'
+  },
+
+  /**
    * 値が `Map` か否かを返す
    * @param value
    */

@@ -323,6 +323,25 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isRegExp()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = /^.+$/
+
+      Checks.isRegExp(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isRegExp(/^.+$/)).toBe(true)
+      expect(Checks.isRegExp(new RegExp('^.+$'))).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isRegExp(`/^.+$/`)).toBe(false)
+      expect(Checks.isRegExp(null)).toBe(false)
+    })
+  })
+
   describe('isMap()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const expected = new Map()
