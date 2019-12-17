@@ -343,6 +343,37 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isObject()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isObject)
+      checksAPISpy = jest.spyOn(Checks, 'isObject')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    const object = { key: 'VALUE' }
+
+    it('`Checks.isObject()` を呼び出す', () => {
+      assertion(object)
+      expect(checksAPISpy).toHaveBeenCalledWith(object)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(object)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not an object')
+    })
+  })
+
   describe('isPromise()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isPromise)

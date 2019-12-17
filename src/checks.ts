@@ -112,6 +112,15 @@ export const Checks = {
   },
 
   /**
+   * 値がobjectか否かを返す
+   * @description `null` 及びプリミティブ値以外をすべて `true` とする
+   * @param value
+   */
+  isObject(value: unknown): value is object {
+    return typeof value === 'object' && !Checks.isNull(value)
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトか否かを返す
    * @param value
    */
