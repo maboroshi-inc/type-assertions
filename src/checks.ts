@@ -130,6 +130,15 @@ export const Checks = {
   },
 
   /**
+   * 値がobjectか否かを返す
+   * @description `Object` のみを `true` とする
+   * @param value
+   */
+  isPlaneObject(value: unknown): value is object {
+    return true
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトか否かを返す
    * @param value
    */
