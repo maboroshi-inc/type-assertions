@@ -166,7 +166,7 @@ export const Checks = {
    * @param value
    */
   isUndefined(value: unknown): value is undefined {
-    return true
+    return value === undefined
   },
 
   /**
