@@ -43,6 +43,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が有効なDateかアサートする
+   * @param value
+   * @throw `value` が有効なDateでない
+   */
+  isValidDate(value: unknown): asserts value is Date {
+    assert(Checks.isValidDate(value), 'value is not a valid Date')
+  },
+
+  /**
    * 値がErrorかアサートする
    * @param value
    * @throw `value` がErrorでない

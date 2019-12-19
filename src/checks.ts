@@ -51,6 +51,15 @@ export const Checks = {
   },
 
   /**
+   * 値が有効なDateか否かを返す
+   * @param value
+   */
+  isValidDate(value: unknown): value is Date {
+    // Invalid Date の getTime の返り値は NaN。 なので返り値が NaN ではない場合は有効なDateとみなす。
+    return Checks.isDate(value) && !Checks.isNaN(value.getTime())
+  },
+
+  /**
    * 値がErrorか否かを返す
    * @param value
    */

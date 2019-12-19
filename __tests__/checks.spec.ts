@@ -96,6 +96,23 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isValidDate()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const date = new Date('2020-10-10')
+      Checks.isDate(date)
+      expect(getObjectTypeNameSpy).toBeCalledWith(date)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isValidDate(new Date('2020-10-10'))).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isValidDate(new Date('20201010'))).toBe(false)
+      expect(Checks.isValidDate(null)).toBe(false)
+    })
+  })
+
   describe('isError()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const error = new Error()
