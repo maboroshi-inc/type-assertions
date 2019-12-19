@@ -152,6 +152,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が文字列かアサートする
+   * @param value
+   * @throw `value` が文字列でない
+   */
+  isString(value: unknown): asserts value is string {
+    return assert(Checks.isString(value), 'value is not a string')
+  },
+
+  /**
    * 値が `Map` かアサートする
    * @param value
    * @throw `value` が `Map` でない

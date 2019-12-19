@@ -542,6 +542,37 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isString()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isString)
+      checksAPISpy = jest.spyOn(Checks, 'isString')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isString()` を呼び出す', () => {
+      const expected = 'string'
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion('string')).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a string')
+    })
+  })
+
   describe('isMap()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isMap)
