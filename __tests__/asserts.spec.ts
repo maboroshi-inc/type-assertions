@@ -542,6 +542,36 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isSafeInteger()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isSafeInteger)
+      checksAPISpy = jest.spyOn(Checks, 'isSafeInteger')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isSafeInteger()` を呼び出す', () => {
+      assertion(0)
+      expect(checksAPISpy).toHaveBeenCalledWith(0)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(0)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a safe integer')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
   describe('isMap()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isMap)
