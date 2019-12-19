@@ -417,6 +417,7 @@ describe('Checks API', () => {
 
     it('`true` を返す', () => {
       expect(Checks.isSafeInteger(123)).toBe(true)
+      expect(Checks.isSafeInteger(Math.pow(2, 53) - 1)).toBe(true)
     })
 
     it('`false` を返す', () => {
