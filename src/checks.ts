@@ -166,7 +166,7 @@ export const Checks = {
    * @param value
    */
   isSymbol(value: unknown): value is symbol {
-    return true
+    return typeof value === 'symbol'
   },
 
   /**
