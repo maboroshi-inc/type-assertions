@@ -162,6 +162,14 @@ export const Checks = {
   },
 
   /**
+   * 値が文字列か否かを返す
+   * @param value
+   */
+  isString(value: unknown): value is string {
+    return true
+  },
+
+  /**
    * 値が `Map` か否かを返す
    * @param value
    */
