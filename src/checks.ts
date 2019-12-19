@@ -135,7 +135,11 @@ export const Checks = {
    * @param value
    */
   isPlaneObject(value: unknown): value is object {
-    return true
+    return (
+      Checks.isObject(value) && // パフォーマンスアップのために最初にプリミティブ値を弾く
+      getObjectTypeName(value) === '[object Object]' &&
+      value.constructor === Object.prototype.constructor // constructor を比較してカスタムクラスを弾く
+    )
   },
 
   /**
