@@ -162,6 +162,14 @@ export const Checks = {
   },
 
   /**
+   * 値が undefined か否かを返す
+   * @param value
+   */
+  isUndefined(value: unknown): value is undefined {
+    return true
+  },
+
+  /**
    * 値が `Map` か否かを返す
    * @param value
    */

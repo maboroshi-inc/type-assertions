@@ -400,6 +400,18 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isUndefined()', () => {
+    it('`true` を返す', () => {
+      expect(Checks.isUndefined(undefined)).toBe(true)
+      expect(Checks.isUndefined(void 0)).toBe(true) // eslint-disable-line no-void
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isUndefined(0)).toBe(false)
+      expect(Checks.isUndefined(null)).toBe(false)
+    })
+  })
+
   describe('isMap()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const expected = new Map()
