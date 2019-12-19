@@ -542,6 +542,37 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isUndefined', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isUndefined)
+      checksAPISpy = jest.spyOn(Checks, 'isUndefined')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isUndefined()` を呼び出す', () => {
+      const expected = undefined
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(undefined)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not an undefined')
+    })
+  })
+
   describe('isMap()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isMap)
