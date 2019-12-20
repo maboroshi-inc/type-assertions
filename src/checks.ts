@@ -175,6 +175,39 @@ export const Checks = {
   },
 
   /**
+   * 値が safe integer か否かを返す
+   * @alias `Number.isSafeInteger()`
+   * @param value
+   */
+  isSafeInteger(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isSafeInteger(value)
+  },
+
+  /**
+   * 値が文字列か否かを返す
+   * @param value
+   */
+  isString(value: unknown): value is string {
+    return getObjectTypeName(value) === '[object String]'
+  },
+
+  /**
+   * 値がsymbolか否かを返す
+   * @param value
+   */
+  isSymbol(value: unknown): value is symbol {
+    return typeof value === 'symbol'
+  },
+
+  /**
+   * 値が undefined か否かを返す
+   * @param value
+   */
+  isUndefined(value: unknown): value is undefined {
+    return value === undefined
+  },
+
+  /**
    * 値が `Map` か否かを返す
    * @param value
    */
