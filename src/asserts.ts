@@ -170,6 +170,15 @@ export const Asserts = {
   },
 
   /**
+   * 値がsymbolかアサートする
+   * @param value
+   * @throw `value` がsymbolでない
+   */
+  isSymbol(value: unknown): asserts value is symbol {
+    return assert(Checks.isSymbol(value), 'value is not a symbol')
+  },
+
+  /**
    * 値が `Map` かアサートする
    * @param value
    * @throw `value` が `Map` でない

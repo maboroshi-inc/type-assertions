@@ -603,6 +603,37 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isSymbol', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isSymbol)
+      checksAPISpy = jest.spyOn(Checks, 'isSymbol')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isSymbol()` を呼び出す', () => {
+      const expected = Symbol('symbol')
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(Symbol('symbol'))).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a symbol')
+    })
+  })
+
   describe('isMap()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isMap)

@@ -179,6 +179,14 @@ export const Checks = {
   },
 
   /**
+   * 値がsymbolか否かを返す
+   * @param value
+   */
+  isSymbol(value: unknown): value is symbol {
+    return typeof value === 'symbol'
+  },
+
+  /**
    * 値が `Map` か否かを返す
    * @param value
    */

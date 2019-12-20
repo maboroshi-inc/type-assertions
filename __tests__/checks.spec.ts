@@ -450,6 +450,17 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isSymbol()', () => {
+    it('`true` を返す', () => {
+      expect(Checks.isSymbol(Symbol('symbol'))).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isSymbol(null)).toBe(false)
+      expect(Checks.isSymbol(Object.create(null))).toBe(false)
+    })
+  })
+
   describe('isMap()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const expected = new Map()
