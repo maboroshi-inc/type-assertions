@@ -130,7 +130,7 @@ export const Checks = {
   },
 
   /**
-   * 値がobjectか否かを返す
+   * 値がObjectオブジェクトか否かを返す
    * @description `Object` のみを `true` とする
    * @param value
    */
