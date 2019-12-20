@@ -409,10 +409,10 @@ describe('Asserts API', () => {
     })
   })
 
-  describe('isPlaneObject()', () => {
+  describe('isPlainObject()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isPlaneObject)
-      checksAPISpy = jest.spyOn(Checks, 'isPlaneObject')
+      checksAPISpy = jest.spyOn(Checks, 'isPlainObject')
     })
 
     beforeEach(() => {
@@ -425,7 +425,7 @@ describe('Asserts API', () => {
 
     const object = { key: 'VALUE' }
 
-    it('`Checks.isPlaneObject()` を呼び出す', () => {
+    it('`Checks.isPlainObject()` を呼び出す', () => {
       assertion(object)
       expect(checksAPISpy).toHaveBeenCalledWith(object)
     })

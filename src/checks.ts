@@ -134,7 +134,7 @@ export const Checks = {
    * @description `Object` のみを `true` とする
    * @param value
    */
-  isPlaneObject(value: unknown): value is object {
+  isPlainObject(value: unknown): value is object {
     return (
       Checks.isObject(value) && // パフォーマンスアップのために最初にプリミティブ値を弾く
       getObjectTypeName(value) === '[object Object]' &&

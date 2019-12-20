@@ -314,20 +314,20 @@ describe('Checks API', () => {
     })
   })
 
-  describe('isPlaneObject()', () => {
+  describe('isPlainObject()', () => {
     const object = { key: 'VALUE' }
     class DummyClassForIsPlaneObjectTesting {
       key = 'VALUE'
     }
 
     it('`getObjectTypeName()` を呼び出す', () => {
-      Checks.isPlaneObject(object)
+      Checks.isPlainObject(object)
       expect(getObjectTypeNameSpy).toBeCalledWith(object)
     })
 
     it('`Checks.isObject() を呼び出す`', () => {
       const isObjectSpy = jest.spyOn(Checks, 'isObject')
-      Checks.isPlaneObject(object)
+      Checks.isPlainObject(object)
       expect(isObjectSpy).toBeCalledWith(object)
       isObjectSpy.mockRestore()
     })
@@ -337,7 +337,7 @@ describe('Checks API', () => {
       new Object(), // eslint-disable-line no-new-object
       Object.create(object)
     ])('`true` を返す', value => {
-      expect(Checks.isPlaneObject(value)).toBe(true)
+      expect(Checks.isPlainObject(value)).toBe(true)
     })
 
     it.each([
@@ -359,7 +359,7 @@ describe('Checks API', () => {
       new Set(),
       new DummyClassForIsPlaneObjectTesting()
     ])('`false` を返す', value => {
-      expect(Checks.isPlaneObject(value)).toBe(false)
+      expect(Checks.isPlainObject(value)).toBe(false)
     })
   })
 
