@@ -542,6 +542,98 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isSafeInteger()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isSafeInteger)
+      checksAPISpy = jest.spyOn(Checks, 'isSafeInteger')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isSafeInteger()` を呼び出す', () => {
+      assertion(0)
+      expect(checksAPISpy).toHaveBeenCalledWith(0)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(0)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a safe integer')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
+  describe('isString()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isString)
+      checksAPISpy = jest.spyOn(Checks, 'isString')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isString()` を呼び出す', () => {
+      const expected = 'string'
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion('string')).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a string')
+    })
+  })
+
+  describe('isSymbol', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isSymbol)
+      checksAPISpy = jest.spyOn(Checks, 'isSymbol')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isSymbol()` を呼び出す', () => {
+      const expected = Symbol('symbol')
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(Symbol('symbol'))).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a symbol')
+    })
+  })
+
   describe('isUndefined', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isUndefined)

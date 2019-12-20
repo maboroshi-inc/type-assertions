@@ -152,6 +152,33 @@ export const Asserts = {
   },
 
   /**
+   * 値が safe integer かアサートする
+   * @param value
+   * @throw `value` が safe integer でない
+   */
+  isSafeInteger(value: unknown): asserts value is number {
+    return assert(Checks.isSafeInteger(value), 'value is not a safe integer')
+  },
+
+  /**
+   * 値が文字列かアサートする
+   * @param value
+   * @throw `value` が文字列でない
+   */
+  isString(value: unknown): asserts value is string {
+    return assert(Checks.isString(value), 'value is not a string')
+  },
+
+  /**
+   * 値がsymbolかアサートする
+   * @param value
+   * @throw `value` がsymbolでない
+   */
+  isSymbol(value: unknown): asserts value is symbol {
+    return assert(Checks.isSymbol(value), 'value is not a symbol')
+  },
+
+  /**
    * 値が undefined かアサートする
    * @param value
    * @throw `value` が undefined でない
