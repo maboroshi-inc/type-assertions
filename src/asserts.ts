@@ -152,6 +152,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が safe integer かアサートする
+   * @param value
+   * @throw `value` が safe integer でない
+   */
+  isSafeInteger(value: unknown): asserts value is number {
+    return assert(Checks.isSafeInteger(value), 'value is not a safe integer')
+  },
+
+  /**
    * 値が `Map` かアサートする
    * @param value
    * @throw `value` が `Map` でない

@@ -162,6 +162,15 @@ export const Checks = {
   },
 
   /**
+   * 値が safe integer か否かを返す
+   * @alias `Number.isSafeInteger()`
+   * @param value
+   */
+  isSafeInteger(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isSafeInteger(value)
+  },
+
+  /**
    * 値が `Map` か否かを返す
    * @param value
    */
