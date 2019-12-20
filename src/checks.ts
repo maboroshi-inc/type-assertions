@@ -130,6 +130,14 @@ export const Checks = {
   },
 
   /**
+   * 値が関数か否かを返す
+   * @param value
+   */
+  isFunction(value: unknown): value is Function {
+    return getObjectTypeName(value) === '[object Function]'
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトか否かを返す
    * @param value
    */
