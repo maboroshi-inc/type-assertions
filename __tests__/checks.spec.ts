@@ -431,6 +431,25 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isString()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = 'string'
+
+      Checks.isString(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isString('string')).toBe(true)
+      expect(Checks.isString(new String())).toBe(true) // eslint-disable-line no-new-wrappers
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isString(123)).toBe(false)
+      expect(Checks.isString(null)).toBe(false)
+    })
+  })
+
   describe('isMap()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const expected = new Map()
