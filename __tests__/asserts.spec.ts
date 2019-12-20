@@ -411,7 +411,7 @@ describe('Asserts API', () => {
 
   describe('isPlainObject()', () => {
     beforeAll(() => {
-      assertion = createAssertion(Asserts.isPlaneObject)
+      assertion = createAssertion(Asserts.isPlainObject)
       checksAPISpy = jest.spyOn(Checks, 'isPlainObject')
     })
 

@@ -129,7 +129,7 @@ export const Asserts = {
    * @param value
    * @throw `value` がObjectオブジェクトでない
    */
-  isPlaneObject(value: unknown): asserts value is object {
+  isPlainObject(value: unknown): asserts value is object {
     return assert(Checks.isPlainObject(value), 'value is not a plane object')
   },
 
