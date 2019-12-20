@@ -179,6 +179,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が undefined かアサートする
+   * @param value
+   * @throw `value` が undefined でない
+   */
+  isUndefined(value: unknown): asserts value is undefined {
+    return assert(Checks.isUndefined(value), 'value is not an undefined')
+  },
+
+  /**
    * 値が `Map` かアサートする
    * @param value
    * @throw `value` が `Map` でない
