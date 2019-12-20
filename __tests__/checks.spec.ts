@@ -400,6 +400,37 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isSafeInteger', () => {
+    it('`Checks.isNumber() を呼び出す`', () => {
+      const isNumberSpy = jest.spyOn(Checks, 'isNumber')
+      Checks.isSafeInteger(123)
+      expect(isNumberSpy).toBeCalledWith(123)
+      isNumberSpy.mockRestore()
+    })
+
+    it('`Number.isSafeInteger() を呼び出す`', () => {
+      const isSafeIntegerSpy = jest.spyOn(Number, 'isSafeInteger')
+      Checks.isSafeInteger(123)
+      expect(isSafeIntegerSpy).toBeCalledWith(123)
+      isSafeIntegerSpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isSafeInteger(123)).toBe(true)
+      expect(Checks.isSafeInteger(Math.pow(2, 53) - 1)).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isSafeInteger(Math.pow(2, 53))).toBe(false)
+      expect(Checks.isSafeInteger(Math.PI)).toBe(false)
+      expect(Checks.isSafeInteger(NaN)).toBe(false)
+      expect(Checks.isSafeInteger(Infinity)).toBe(false)
+      expect(Checks.isSafeInteger(-Infinity)).toBe(false)
+      expect(Checks.isSafeInteger('string')).toBe(false)
+      expect(Checks.isSafeInteger(null)).toBe(false)
+    })
+  })
+
   describe('isString()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const expected = 'string'
