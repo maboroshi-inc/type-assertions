@@ -130,6 +130,19 @@ export const Checks = {
   },
 
   /**
+   * 値がObjectオブジェクトか否かを返す
+   * @description `Object` のみを `true` とする
+   * @param value
+   */
+  isPlainObject(value: unknown): value is object {
+    return (
+      Checks.isObject(value) && // パフォーマンスアップのために最初にプリミティブ値を弾く
+      getObjectTypeName(value) === '[object Object]' &&
+      value.constructor === Object.prototype.constructor // constructor を比較してカスタムクラスを弾く
+    )
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトか否かを返す
    * @param value
    */

@@ -125,6 +125,15 @@ export const Asserts = {
   },
 
   /**
+   * 値がObjectオブジェクトかアサートする
+   * @param value
+   * @throw `value` がObjectオブジェクトでない
+   */
+  isPlainObject(value: unknown): asserts value is object {
+    return assert(Checks.isPlainObject(value), 'value is not a plane object')
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトかアサートする
    * @param value
    * @throw `value` がPromiseでない
