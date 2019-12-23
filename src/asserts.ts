@@ -1,4 +1,4 @@
-import Checks from './checks'
+import Guards from './guards'
 import { assert } from './internal/assert'
 
 /**
@@ -12,7 +12,7 @@ export const Asserts = {
    * @param value
    */
   isArray(value: unknown): asserts value is unknown[] {
-    return assert(Checks.isArray(value), 'value is not an array')
+    return assert(Guards.isArray(value), 'value is not an array')
   },
 
   /**
@@ -21,7 +21,7 @@ export const Asserts = {
    * @throw `value` がBigIntでない
    */
   isBigInt(value: unknown): asserts value is bigint {
-    return assert(Checks.isBigInt(value), 'value is not a bigint')
+    return assert(Guards.isBigInt(value), 'value is not a bigint')
   },
 
   /**
@@ -30,7 +30,7 @@ export const Asserts = {
    * @throw `value` がBooleanでない
    */
   isBoolean(value: unknown): asserts value is boolean {
-    return assert(Checks.isBoolean(value), 'value is not a boolean')
+    return assert(Guards.isBoolean(value), 'value is not a boolean')
   },
 
   /**
@@ -39,7 +39,7 @@ export const Asserts = {
    * @throw `value` がDateでない
    */
   isDate(value: unknown): asserts value is Date {
-    return assert(Checks.isDate(value), 'value is not a Date')
+    return assert(Guards.isDate(value), 'value is not a Date')
   },
 
   /**
@@ -48,7 +48,7 @@ export const Asserts = {
    * @throw `value` が有効なDateでない
    */
   isValidDate(value: unknown): asserts value is Date {
-    assert(Checks.isValidDate(value), 'value is not a valid Date')
+    assert(Guards.isValidDate(value), 'value is not a valid Date')
   },
 
   /**
@@ -57,7 +57,7 @@ export const Asserts = {
    * @throw `value` がErrorでない
    */
   isError(value: unknown): asserts value is Error {
-    return assert(Checks.isError(value), 'value is not an Error')
+    return assert(Guards.isError(value), 'value is not an Error')
   },
 
   /**
@@ -66,7 +66,7 @@ export const Asserts = {
    * @throw `value` が有限数でない
    */
   isFiniteNumber(value: unknown): asserts value is number {
-    return assert(Checks.isFiniteNumber(value), 'value is not a finite number')
+    return assert(Guards.isFiniteNumber(value), 'value is not a finite number')
   },
 
   /**
@@ -75,7 +75,7 @@ export const Asserts = {
    * @throw `value` が整数でない
    */
   isInteger(value: unknown): asserts value is number {
-    return assert(Checks.isInteger(value), 'value is not an integer')
+    return assert(Guards.isInteger(value), 'value is not an integer')
   },
 
   /**
@@ -83,7 +83,7 @@ export const Asserts = {
    * @param value
    */
   isNaN(value: unknown): asserts value is typeof NaN {
-    return assert(Checks.isNaN(value), 'value is not a NaN')
+    return assert(Guards.isNaN(value), 'value is not a NaN')
   },
 
   /**
@@ -92,7 +92,7 @@ export const Asserts = {
    * @throw `value` が `null` でない
    */
   isNull(value: unknown): asserts value is null {
-    return assert(Checks.isNull(value), 'value is not a null')
+    return assert(Guards.isNull(value), 'value is not a null')
   },
 
   /**
@@ -101,8 +101,8 @@ export const Asserts = {
    * @param value
    * @throw `value` が数値でない
    */
-  isNumber(value: any): asserts value is number {
-    return assert(Checks.isNumber(value), 'value is not a number')
+  isNumber(value: unknown): asserts value is number {
+    return assert(Guards.isNumber(value), 'value is not a number')
   },
 
   /**
@@ -112,7 +112,7 @@ export const Asserts = {
    * @throw `value` が厳密に数値でない
    */
   isStrictNumber(value: unknown): asserts value is number {
-    return assert(Checks.isStrictNumber(value), 'value is not a strict number')
+    return assert(Guards.isStrictNumber(value), 'value is not a strict number')
   },
 
   /**
@@ -121,7 +121,7 @@ export const Asserts = {
    * @throw `value` がobjectでない
    */
   isObject(value: unknown): asserts value is object {
-    return assert(Checks.isObject(value), 'value is not an object')
+    return assert(Guards.isObject(value), 'value is not an object')
   },
 
   /**
@@ -130,7 +130,7 @@ export const Asserts = {
    * @throw `value` がObjectオブジェクトでない
    */
   isPlainObject(value: unknown): asserts value is object {
-    return assert(Checks.isPlainObject(value), 'value is not a plane object')
+    return assert(Guards.isPlainObject(value), 'value is not a plane object')
   },
 
   /**
@@ -139,7 +139,7 @@ export const Asserts = {
    * @throw `value` が関数でない
    */
   isFunction(value: unknown): asserts value is Function {
-    return assert(Checks.isFunction(value), 'value is not a function')
+    return assert(Guards.isFunction(value), 'value is not a function')
   },
 
   /**
@@ -149,7 +149,7 @@ export const Asserts = {
    */
   isGeneratorFunction(value: unknown): asserts value is GeneratorFunction {
     return assert(
-      Checks.isGeneratorFunction(value),
+      Guards.isGeneratorFunction(value),
       'value is not a generator function'
     )
   },
@@ -160,7 +160,7 @@ export const Asserts = {
    * @throw `value` がPromiseでない
    */
   isPromise(value: unknown): asserts value is Promise<unknown> {
-    assert(Checks.isPromise(value), 'value is not a Promise')
+    assert(Guards.isPromise(value), 'value is not a Promise')
   },
 
   /**
@@ -169,7 +169,7 @@ export const Asserts = {
    * @throw `value` がPromiseLikeでない
    */
   isPromiseLike(value: unknown): asserts value is PromiseLike<unknown> {
-    assert(Checks.isPromiseLike(value), 'value is not a PromiseLike')
+    assert(Guards.isPromiseLike(value), 'value is not a PromiseLike')
   },
 
   /**
@@ -178,7 +178,7 @@ export const Asserts = {
    * @throw `value` が正規表現オブジェクトでない
    */
   isRegExp(value: unknown): asserts value is RegExp {
-    return assert(Checks.isRegExp(value), 'value is not a RegExp')
+    return assert(Guards.isRegExp(value), 'value is not a RegExp')
   },
 
   /**
@@ -187,7 +187,7 @@ export const Asserts = {
    * @throw `value` が safe integer でない
    */
   isSafeInteger(value: unknown): asserts value is number {
-    return assert(Checks.isSafeInteger(value), 'value is not a safe integer')
+    return assert(Guards.isSafeInteger(value), 'value is not a safe integer')
   },
 
   /**
@@ -196,7 +196,7 @@ export const Asserts = {
    * @throw `value` が文字列でない
    */
   isString(value: unknown): asserts value is string {
-    return assert(Checks.isString(value), 'value is not a string')
+    return assert(Guards.isString(value), 'value is not a string')
   },
 
   /**
@@ -205,7 +205,7 @@ export const Asserts = {
    * @throw `value` がsymbolでない
    */
   isSymbol(value: unknown): asserts value is symbol {
-    return assert(Checks.isSymbol(value), 'value is not a symbol')
+    return assert(Guards.isSymbol(value), 'value is not a symbol')
   },
 
   /**
@@ -214,7 +214,7 @@ export const Asserts = {
    * @throw `value` が undefined でない
    */
   isUndefined(value: unknown): asserts value is undefined {
-    return assert(Checks.isUndefined(value), 'value is not an undefined')
+    return assert(Guards.isUndefined(value), 'value is not an undefined')
   },
 
   /**
@@ -223,7 +223,7 @@ export const Asserts = {
    * @throw `value` が `Map` でない
    */
   isMap(value: unknown): asserts value is Map<unknown, unknown> {
-    assert(Checks.isMap(value), 'value is not a Map')
+    assert(Guards.isMap(value), 'value is not a Map')
   },
 
   /**
@@ -232,7 +232,7 @@ export const Asserts = {
    * @throw `value` が `WeakMap` でない
    */
   isWeakMap(value: unknown): asserts value is WeakMap<object, unknown> {
-    assert(Checks.isWeakMap(value), 'value is not a WeakMap')
+    assert(Guards.isWeakMap(value), 'value is not a WeakMap')
   },
 
   /**
@@ -241,7 +241,7 @@ export const Asserts = {
    * @throw `value` が `Set` でない
    */
   isSet(value: unknown): asserts value is Set<unknown> {
-    assert(Checks.isSet(value), 'value is not a Set')
+    assert(Guards.isSet(value), 'value is not a Set')
   },
 
   /**
@@ -250,7 +250,7 @@ export const Asserts = {
    * @throw `value` が `WeakSet` でない
    */
   isWeakSet(value: unknown): asserts value is WeakSet<object> {
-    assert(Checks.isWeakSet(value), 'value is not a WeakSet')
+    assert(Guards.isWeakSet(value), 'value is not a WeakSet')
   }
 }
 

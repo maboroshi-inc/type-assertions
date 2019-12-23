@@ -12,11 +12,11 @@ type MaybeThenable = {
 }
 
 /**
- * 型チェックAPI
+ * 型ガードAPI
  * @description 値が指定の方であるか否かを `boolean` で返す
  * @category API
  */
-export const Checks = {
+export const Guards = {
   /**
    * 値が配列か否かを返す
    * @alias `Array.isArray()`
@@ -56,7 +56,7 @@ export const Checks = {
    */
   isValidDate(value: unknown): value is Date {
     // Invalid Date の getTime の返り値は NaN。 なので返り値が NaN ではない場合は有効なDateとみなす。
-    return Checks.isDate(value) && !Checks.isNaN(value.getTime())
+    return Guards.isDate(value) && !Guards.isNaN(value.getTime())
   },
 
   /**
@@ -73,7 +73,7 @@ export const Checks = {
    * @param value
    */
   isFiniteNumber(value: unknown): value is number {
-    return Checks.isNumber(value) && Number.isFinite(value)
+    return Guards.isNumber(value) && Number.isFinite(value)
   },
 
   /**
@@ -82,7 +82,7 @@ export const Checks = {
    * @param value
    */
   isInteger(value: unknown): value is number {
-    return Checks.isNumber(value) && Number.isInteger(value)
+    return Guards.isNumber(value) && Number.isInteger(value)
   },
 
   /**
@@ -91,7 +91,7 @@ export const Checks = {
    * @param value
    */
   isNaN(value: unknown): value is typeof NaN {
-    return Checks.isNumber(value) && Number.isNaN(value)
+    return Guards.isNumber(value) && Number.isNaN(value)
   },
 
   /**
@@ -117,7 +117,7 @@ export const Checks = {
    * @param value
    */
   isStrictNumber(value: unknown): value is number {
-    return Checks.isNumber(value) && !Checks.isNaN(value)
+    return Guards.isNumber(value) && !Guards.isNaN(value)
   },
 
   /**
@@ -126,7 +126,7 @@ export const Checks = {
    * @param value
    */
   isObject(value: unknown): value is object {
-    return typeof value === 'object' && !Checks.isNull(value)
+    return typeof value === 'object' && !Guards.isNull(value)
   },
 
   /**
@@ -136,7 +136,7 @@ export const Checks = {
    */
   isPlainObject(value: unknown): value is object {
     return (
-      Checks.isObject(value) && // パフォーマンスアップのために最初にプリミティブ値を弾く
+      Guards.isObject(value) && // パフォーマンスアップのために最初にプリミティブ値を弾く
       getObjectTypeName(value) === '[object Object]' &&
       value.constructor === Object.prototype.constructor // constructor を比較してカスタムクラスを弾く
     )
@@ -171,11 +171,11 @@ export const Checks = {
    * @param value
    */
   isPromiseLike(value: unknown): value is PromiseLike<unknown> {
-    if (Checks.isPromise(value)) {
+    if (Guards.isPromise(value)) {
       return true
     }
 
-    return !!value && Checks.isFunction((value as MaybeThenable).then)
+    return !!value && Guards.isFunction((value as MaybeThenable).then)
   },
 
   /**
@@ -192,7 +192,7 @@ export const Checks = {
    * @param value
    */
   isSafeInteger(value: unknown): value is number {
-    return Checks.isNumber(value) && Number.isSafeInteger(value)
+    return Guards.isNumber(value) && Number.isSafeInteger(value)
   },
 
   /**
@@ -252,4 +252,4 @@ export const Checks = {
   }
 }
 
-export default Checks
+export default Guards
