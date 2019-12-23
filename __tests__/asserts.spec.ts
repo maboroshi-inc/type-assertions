@@ -130,41 +130,6 @@ describe('Asserts API', () => {
     })
   })
 
-  describe('isValidDate()', () => {
-    beforeAll(() => {
-      assertion = createAssertion(Asserts.isValidDate)
-      guardsAPISpy = jest.spyOn(Guards, 'isValidDate')
-    })
-
-    beforeEach(() => {
-      guardsAPISpy.mockClear()
-    })
-
-    afterAll(() => {
-      guardsAPISpy.mockRestore()
-    })
-
-    it('`Guards.isValidDate()` を呼び出す', () => {
-      const date = new Date('2020-10-10')
-
-      assertion(date)
-      expect(guardsAPISpy).toHaveBeenCalledWith(date)
-    })
-
-    it.each([new Date(), new Date('2020-10-10')])(
-      '%o => `void` を返す',
-      value => {
-        expect(() => assertion(value)).not.toThrowError()
-        expect(guardsAPISpy).toHaveReturnedWith(true)
-      }
-    )
-
-    it.each([new Date('20201010'), null])('%o => 例外を投げる', value => {
-      expect(() => assertion(value)).toThrowError('value is not a valid Date')
-      expect(guardsAPISpy).toHaveReturnedWith(false)
-    })
-  })
-
   describe('isError()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isError)
@@ -229,6 +194,85 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isFunction()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isFunction)
+      guardsAPISpy = jest.spyOn(Guards, 'isFunction')
+    })
+
+    beforeEach(() => {
+      guardsAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      guardsAPISpy.mockRestore()
+    })
+
+    it('`Guards.isFunction()` を呼び出す', () => {
+      const fn = (): number => 42
+
+      assertion(fn)
+      expect(guardsAPISpy).toHaveBeenCalledWith(fn)
+    })
+
+    it.each([
+      (): number => 42,
+      // eslint-disable-next-line no-new-func
+      new Function('return 42')
+    ])('チェックをパスする', value => {
+      expect(assertion(value)).toBeUndefined()
+      expect(guardsAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([
+      function*(): Generator<number, void> {
+        yield 42
+      },
+      null
+    ])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a function')
+    })
+  })
+
+  describe('isGeneratorFunction()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isGeneratorFunction)
+      guardsAPISpy = jest.spyOn(Guards, 'isGeneratorFunction')
+    })
+
+    beforeEach(() => {
+      guardsAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      guardsAPISpy.mockRestore()
+    })
+
+    it('`Guards.isGeneratorFunction()` を呼び出す', () => {
+      function* fn(): Generator<number> {
+        yield 42
+      }
+
+      assertion(fn)
+      expect(guardsAPISpy).toHaveBeenCalledWith(fn)
+    })
+
+    it.each([
+      function* fn(): Generator<number> {
+        yield 42
+      }
+    ])('チェックをパスする', value => {
+      expect(assertion(value)).toBeUndefined()
+      expect(guardsAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([(): number => 42, null])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError(
+        'value is not a generator function'
+      )
+    })
+  })
+
   describe('isInteger()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isInteger)
@@ -255,6 +299,43 @@ describe('Asserts API', () => {
 
     it('例外を投げる', () => {
       expect(() => assertion(null)).toThrowError('value is not an integer')
+      expect(guardsAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
+  describe('isMap()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isMap)
+      guardsAPISpy = jest.spyOn(Guards, 'isMap')
+    })
+
+    beforeEach(() => {
+      guardsAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      guardsAPISpy.mockRestore()
+    })
+
+    it('`Guards.isMap()` を呼び出す', () => {
+      const expected = new Map()
+
+      assertion(expected)
+      expect(guardsAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it.each([new Map()])('チェックをパスする', map => {
+      expect(() => assertion(map)).not.toThrowError()
+      expect(guardsAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([
+      Object.create(null), // dictionary
+      new Set(),
+      new WeakMap(),
+      null
+    ])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a Map')
       expect(guardsAPISpy).toHaveReturnedWith(false)
     })
   })
@@ -349,35 +430,6 @@ describe('Asserts API', () => {
     })
   })
 
-  describe('isStrictNumber()', () => {
-    beforeAll(() => {
-      assertion = createAssertion(Asserts.isStrictNumber)
-      guardsAPISpy = jest.spyOn(Guards, 'isStrictNumber')
-    })
-
-    beforeEach(() => {
-      guardsAPISpy.mockClear()
-    })
-
-    afterAll(() => {
-      guardsAPISpy.mockRestore()
-    })
-
-    it('`Guards.isStrictNumber()` を呼び出す', () => {
-      assertion(123)
-      expect(guardsAPISpy).toHaveBeenCalledWith(123)
-    })
-
-    it('`void` を返す', () => {
-      expect(assertion(123)).toBeUndefined()
-      expect(guardsAPISpy).toHaveReturnedWith(true)
-    })
-
-    it('例外を投げる', () => {
-      expect(() => assertion(NaN)).toThrowError('value is not a strict number')
-    })
-  })
-
   describe('isObject()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isObject)
@@ -437,85 +489,6 @@ describe('Asserts API', () => {
 
     it('例外を投げる', () => {
       expect(() => assertion(null)).toThrowError('value is not a plane object')
-    })
-  })
-
-  describe('isFunction()', () => {
-    beforeAll(() => {
-      assertion = createAssertion(Asserts.isFunction)
-      guardsAPISpy = jest.spyOn(Guards, 'isFunction')
-    })
-
-    beforeEach(() => {
-      guardsAPISpy.mockClear()
-    })
-
-    afterAll(() => {
-      guardsAPISpy.mockRestore()
-    })
-
-    it('`Guards.isFunction()` を呼び出す', () => {
-      const fn = (): number => 42
-
-      assertion(fn)
-      expect(guardsAPISpy).toHaveBeenCalledWith(fn)
-    })
-
-    it.each([
-      (): number => 42,
-      // eslint-disable-next-line no-new-func
-      new Function('return 42')
-    ])('チェックをパスする', value => {
-      expect(assertion(value)).toBeUndefined()
-      expect(guardsAPISpy).toHaveReturnedWith(true)
-    })
-
-    it.each([
-      function*(): Generator<number, void> {
-        yield 42
-      },
-      null
-    ])('例外を投げる', value => {
-      expect(() => assertion(value)).toThrowError('value is not a function')
-    })
-  })
-
-  describe('isGeneratorFunction()', () => {
-    beforeAll(() => {
-      assertion = createAssertion(Asserts.isGeneratorFunction)
-      guardsAPISpy = jest.spyOn(Guards, 'isGeneratorFunction')
-    })
-
-    beforeEach(() => {
-      guardsAPISpy.mockClear()
-    })
-
-    afterAll(() => {
-      guardsAPISpy.mockRestore()
-    })
-
-    it('`Guards.isGeneratorFunction()` を呼び出す', () => {
-      function* fn(): Generator<number> {
-        yield 42
-      }
-
-      assertion(fn)
-      expect(guardsAPISpy).toHaveBeenCalledWith(fn)
-    })
-
-    it.each([
-      function* fn(): Generator<number> {
-        yield 42
-      }
-    ])('チェックをパスする', value => {
-      expect(assertion(value)).toBeUndefined()
-      expect(guardsAPISpy).toHaveReturnedWith(true)
-    })
-
-    it.each([(): number => 42, null])('例外を投げる', value => {
-      expect(() => assertion(value)).toThrowError(
-        'value is not a generator function'
-      )
     })
   })
 
@@ -682,6 +655,67 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isSet()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isSet)
+      guardsAPISpy = jest.spyOn(Guards, 'isSet')
+    })
+
+    beforeEach(() => {
+      guardsAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      guardsAPISpy.mockRestore()
+    })
+
+    it('`Guards.isSet()` を呼び出す', () => {
+      const expected = new Set()
+
+      assertion(expected)
+      expect(guardsAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it.each([new Set()])('チェックをパスする', value => {
+      expect(() => assertion(value)).not.toThrowError()
+      expect(guardsAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([[], new WeakSet(), null])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a Set')
+      expect(guardsAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
+  describe('isStrictNumber()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isStrictNumber)
+      guardsAPISpy = jest.spyOn(Guards, 'isStrictNumber')
+    })
+
+    beforeEach(() => {
+      guardsAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      guardsAPISpy.mockRestore()
+    })
+
+    it('`Guards.isStrictNumber()` を呼び出す', () => {
+      assertion(123)
+      expect(guardsAPISpy).toHaveBeenCalledWith(123)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(123)).toBeUndefined()
+      expect(guardsAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(NaN)).toThrowError('value is not a strict number')
+    })
+  })
+
   describe('isString()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isString)
@@ -775,10 +809,10 @@ describe('Asserts API', () => {
     })
   })
 
-  describe('isMap()', () => {
+  describe('isValidDate()', () => {
     beforeAll(() => {
-      assertion = createAssertion(Asserts.isMap)
-      guardsAPISpy = jest.spyOn(Guards, 'isMap')
+      assertion = createAssertion(Asserts.isValidDate)
+      guardsAPISpy = jest.spyOn(Guards, 'isValidDate')
     })
 
     beforeEach(() => {
@@ -789,25 +823,23 @@ describe('Asserts API', () => {
       guardsAPISpy.mockRestore()
     })
 
-    it('`Guards.isMap()` を呼び出す', () => {
-      const expected = new Map()
+    it('`Guards.isValidDate()` を呼び出す', () => {
+      const date = new Date('2020-10-10')
 
-      assertion(expected)
-      expect(guardsAPISpy).toHaveBeenCalledWith(expected)
+      assertion(date)
+      expect(guardsAPISpy).toHaveBeenCalledWith(date)
     })
 
-    it.each([new Map()])('チェックをパスする', map => {
-      expect(() => assertion(map)).not.toThrowError()
-      expect(guardsAPISpy).toHaveReturnedWith(true)
-    })
+    it.each([new Date(), new Date('2020-10-10')])(
+      '%o => `void` を返す',
+      value => {
+        expect(() => assertion(value)).not.toThrowError()
+        expect(guardsAPISpy).toHaveReturnedWith(true)
+      }
+    )
 
-    it.each([
-      Object.create(null), // dictionary
-      new Set(),
-      new WeakMap(),
-      null
-    ])('例外を投げる', value => {
-      expect(() => assertion(value)).toThrowError('value is not a Map')
+    it.each([new Date('20201010'), null])('%o => 例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a valid Date')
       expect(guardsAPISpy).toHaveReturnedWith(false)
     })
   })
@@ -846,38 +878,6 @@ describe('Asserts API', () => {
       null
     ])('例外を投げる', value => {
       expect(() => assertion(value)).toThrowError('value is not a WeakMap')
-      expect(guardsAPISpy).toHaveReturnedWith(false)
-    })
-  })
-
-  describe('isSet()', () => {
-    beforeAll(() => {
-      assertion = createAssertion(Asserts.isSet)
-      guardsAPISpy = jest.spyOn(Guards, 'isSet')
-    })
-
-    beforeEach(() => {
-      guardsAPISpy.mockClear()
-    })
-
-    afterAll(() => {
-      guardsAPISpy.mockRestore()
-    })
-
-    it('`Guards.isSet()` を呼び出す', () => {
-      const expected = new Set()
-
-      assertion(expected)
-      expect(guardsAPISpy).toHaveBeenCalledWith(expected)
-    })
-
-    it.each([new Set()])('チェックをパスする', value => {
-      expect(() => assertion(value)).not.toThrowError()
-      expect(guardsAPISpy).toHaveReturnedWith(true)
-    })
-
-    it.each([[], new WeakSet(), null])('例外を投げる', value => {
-      expect(() => assertion(value)).toThrowError('value is not a Set')
       expect(guardsAPISpy).toHaveReturnedWith(false)
     })
   })
