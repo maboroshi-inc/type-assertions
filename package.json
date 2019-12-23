@@ -1,6 +1,6 @@
 {
   "name": "@maboroshi/type-assertions",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.2",
   "description": "Type assertion utilities.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -13,7 +13,9 @@
     "lint": "eslint src/**/*.ts __tests__/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
     "prepublishOnly": "npm run lint && npm run test && npm run build",
-    "test": "jest"
+    "start": "npm run test:watch",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -40,7 +42,7 @@
     "rollup-plugin-filesize": "^6.2.1",
     "rollup-plugin-progress": "^1.1.1",
     "rollup-plugin-typescript2": "^0.25.2",
-    "ts-jest": "^24.1.0",
+    "ts-jest": "^24.2.0",
     "typescript": "^3.7.2"
   },
   "husky": {
