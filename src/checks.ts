@@ -167,11 +167,7 @@ export const Checks = {
       return true
     }
 
-    return (
-      !!value &&
-      /** @todo `Checks.isFunction` が実装されたらそれを使う */
-      getObjectTypeName((value as MaybeThenable).then) === '[object Function]'
-    )
+    return !!value && Checks.isFunction((value as MaybeThenable).then)
   },
 
   /**
