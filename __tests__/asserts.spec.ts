@@ -409,6 +409,37 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isPlainObject()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isPlainObject)
+      checksAPISpy = jest.spyOn(Checks, 'isPlainObject')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    const object = { key: 'VALUE' }
+
+    it('`Checks.isPlainObject()` を呼び出す', () => {
+      assertion(object)
+      expect(checksAPISpy).toHaveBeenCalledWith(object)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(object)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a plane object')
+    })
+  })
+
   describe('isFunction()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isFunction)
@@ -579,6 +610,129 @@ describe('Asserts API', () => {
 
     it('例外を投げる', () => {
       expect(() => assertion(null)).toThrowError('value is not a RegExp')
+    })
+  })
+
+  describe('isSafeInteger()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isSafeInteger)
+      checksAPISpy = jest.spyOn(Checks, 'isSafeInteger')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isSafeInteger()` を呼び出す', () => {
+      assertion(0)
+      expect(checksAPISpy).toHaveBeenCalledWith(0)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(0)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a safe integer')
+      expect(checksAPISpy).toHaveReturnedWith(false)
+    })
+  })
+
+  describe('isString()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isString)
+      checksAPISpy = jest.spyOn(Checks, 'isString')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isString()` を呼び出す', () => {
+      const expected = 'string'
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion('string')).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a string')
+    })
+  })
+
+  describe('isSymbol', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isSymbol)
+      checksAPISpy = jest.spyOn(Checks, 'isSymbol')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isSymbol()` を呼び出す', () => {
+      const expected = Symbol('symbol')
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(Symbol('symbol'))).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not a symbol')
+    })
+  })
+
+  describe('isUndefined', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isUndefined)
+      checksAPISpy = jest.spyOn(Checks, 'isUndefined')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isUndefined()` を呼び出す', () => {
+      const expected = undefined
+
+      assertion(expected)
+      expect(checksAPISpy).toHaveBeenCalledWith(expected)
+    })
+
+    it('`void` を返す', () => {
+      expect(assertion(undefined)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it('例外を投げる', () => {
+      expect(() => assertion(null)).toThrowError('value is not an undefined')
     })
   })
 

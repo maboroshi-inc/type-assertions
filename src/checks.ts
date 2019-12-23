@@ -130,6 +130,19 @@ export const Checks = {
   },
 
   /**
+   * 値がObjectオブジェクトか否かを返す
+   * @description `Object` のみを `true` とする
+   * @param value
+   */
+  isPlainObject(value: unknown): value is object {
+    return (
+      Checks.isObject(value) && // パフォーマンスアップのために最初にプリミティブ値を弾く
+      getObjectTypeName(value) === '[object Object]' &&
+      value.constructor === Object.prototype.constructor // constructor を比較してカスタムクラスを弾く
+    )
+  },
+
+  /**
    * 値が関数か否かを返す
    * @param value
    */
@@ -167,6 +180,39 @@ export const Checks = {
    */
   isRegExp(value: unknown): value is RegExp {
     return getObjectTypeName(value) === '[object RegExp]'
+  },
+
+  /**
+   * 値が safe integer か否かを返す
+   * @alias `Number.isSafeInteger()`
+   * @param value
+   */
+  isSafeInteger(value: unknown): value is number {
+    return Checks.isNumber(value) && Number.isSafeInteger(value)
+  },
+
+  /**
+   * 値が文字列か否かを返す
+   * @param value
+   */
+  isString(value: unknown): value is string {
+    return getObjectTypeName(value) === '[object String]'
+  },
+
+  /**
+   * 値がsymbolか否かを返す
+   * @param value
+   */
+  isSymbol(value: unknown): value is symbol {
+    return typeof value === 'symbol'
+  },
+
+  /**
+   * 値が undefined か否かを返す
+   * @param value
+   */
+  isUndefined(value: unknown): value is undefined {
+    return value === undefined
   },
 
   /**

@@ -125,6 +125,15 @@ export const Asserts = {
   },
 
   /**
+   * 値がObjectオブジェクトかアサートする
+   * @param value
+   * @throw `value` がObjectオブジェクトでない
+   */
+  isPlainObject(value: unknown): asserts value is object {
+    return assert(Checks.isPlainObject(value), 'value is not a plane object')
+  },
+
+  /**
    * 値が関数かアサートする
    * @param value
    * @throw `value` が関数でない
@@ -158,6 +167,42 @@ export const Asserts = {
    */
   isRegExp(value: unknown): asserts value is RegExp {
     return assert(Checks.isRegExp(value), 'value is not a RegExp')
+  },
+
+  /**
+   * 値が safe integer かアサートする
+   * @param value
+   * @throw `value` が safe integer でない
+   */
+  isSafeInteger(value: unknown): asserts value is number {
+    return assert(Checks.isSafeInteger(value), 'value is not a safe integer')
+  },
+
+  /**
+   * 値が文字列かアサートする
+   * @param value
+   * @throw `value` が文字列でない
+   */
+  isString(value: unknown): asserts value is string {
+    return assert(Checks.isString(value), 'value is not a string')
+  },
+
+  /**
+   * 値がsymbolかアサートする
+   * @param value
+   * @throw `value` がsymbolでない
+   */
+  isSymbol(value: unknown): asserts value is symbol {
+    return assert(Checks.isSymbol(value), 'value is not a symbol')
+  },
+
+  /**
+   * 値が undefined かアサートする
+   * @param value
+   * @throw `value` が undefined でない
+   */
+  isUndefined(value: unknown): asserts value is undefined {
+    return assert(Checks.isUndefined(value), 'value is not an undefined')
   },
 
   /**

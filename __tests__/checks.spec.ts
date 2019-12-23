@@ -314,6 +314,55 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isPlainObject()', () => {
+    const object = { key: 'VALUE' }
+    class DummyClassForIsPlaneObjectTesting {
+      key = 'VALUE'
+    }
+
+    it('`getObjectTypeName()` を呼び出す', () => {
+      Checks.isPlainObject(object)
+      expect(getObjectTypeNameSpy).toBeCalledWith(object)
+    })
+
+    it('`Checks.isObject() を呼び出す`', () => {
+      const isObjectSpy = jest.spyOn(Checks, 'isObject')
+      Checks.isPlainObject(object)
+      expect(isObjectSpy).toBeCalledWith(object)
+      isObjectSpy.mockRestore()
+    })
+
+    it.each([
+      object,
+      new Object(), // eslint-disable-line no-new-object
+      Object.create(object)
+    ])('`true` を返す', value => {
+      expect(Checks.isPlainObject(value)).toBe(true)
+    })
+
+    it.each([
+      undefined,
+      null,
+      123,
+      NaN,
+      'string',
+      true,
+      false,
+      Symbol('symbol'),
+      (): void => undefined,
+      [],
+      Object.create(null),
+      new Boolean(0), // eslint-disable-line no-new-wrappers
+      new Number(123), // eslint-disable-line no-new-wrappers
+      new String('string'), // eslint-disable-line no-new-wrappers
+      new Map(),
+      new Set(),
+      new DummyClassForIsPlaneObjectTesting()
+    ])('`false` を返す', value => {
+      expect(Checks.isPlainObject(value)).toBe(false)
+    })
+  })
+
   describe('isFunction()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const fn = (): number => 42
@@ -423,6 +472,79 @@ describe('Checks API', () => {
     it('`false` を返す', () => {
       expect(Checks.isRegExp(`/^.+$/`)).toBe(false)
       expect(Checks.isRegExp(null)).toBe(false)
+    })
+  })
+
+  describe('isSafeInteger', () => {
+    it('`Checks.isNumber() を呼び出す`', () => {
+      const isNumberSpy = jest.spyOn(Checks, 'isNumber')
+      Checks.isSafeInteger(123)
+      expect(isNumberSpy).toBeCalledWith(123)
+      isNumberSpy.mockRestore()
+    })
+
+    it('`Number.isSafeInteger() を呼び出す`', () => {
+      const isSafeIntegerSpy = jest.spyOn(Number, 'isSafeInteger')
+      Checks.isSafeInteger(123)
+      expect(isSafeIntegerSpy).toBeCalledWith(123)
+      isSafeIntegerSpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isSafeInteger(123)).toBe(true)
+      expect(Checks.isSafeInteger(Math.pow(2, 53) - 1)).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isSafeInteger(Math.pow(2, 53))).toBe(false)
+      expect(Checks.isSafeInteger(Math.PI)).toBe(false)
+      expect(Checks.isSafeInteger(NaN)).toBe(false)
+      expect(Checks.isSafeInteger(Infinity)).toBe(false)
+      expect(Checks.isSafeInteger(-Infinity)).toBe(false)
+      expect(Checks.isSafeInteger('string')).toBe(false)
+      expect(Checks.isSafeInteger(null)).toBe(false)
+    })
+  })
+
+  describe('isString()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = 'string'
+
+      Checks.isString(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it('`true` を返す', () => {
+      expect(Checks.isString('string')).toBe(true)
+      expect(Checks.isString(new String())).toBe(true) // eslint-disable-line no-new-wrappers
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isString(123)).toBe(false)
+      expect(Checks.isString(null)).toBe(false)
+    })
+  })
+
+  describe('isSymbol()', () => {
+    it('`true` を返す', () => {
+      expect(Checks.isSymbol(Symbol('symbol'))).toBe(true)
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isSymbol(null)).toBe(false)
+      expect(Checks.isSymbol(Object.create(null))).toBe(false)
+    })
+  })
+
+  describe('isUndefined()', () => {
+    it('`true` を返す', () => {
+      expect(Checks.isUndefined(undefined)).toBe(true)
+      expect(Checks.isUndefined(void 0)).toBe(true) // eslint-disable-line no-void
+    })
+
+    it('`false` を返す', () => {
+      expect(Checks.isUndefined(0)).toBe(false)
+      expect(Checks.isUndefined(null)).toBe(false)
     })
   })
 
