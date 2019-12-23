@@ -363,6 +363,32 @@ describe('Checks API', () => {
     })
   })
 
+  describe('isFunction()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const fn = (): number => 42
+
+      Checks.isFunction(fn)
+      expect(getObjectTypeNameSpy).toBeCalledWith(fn)
+    })
+
+    it.each([
+      (): number => 42,
+      // eslint-disable-next-line no-new-func
+      new Function('return 42')
+    ])('`true` を返す', value => {
+      expect(Checks.isFunction(value)).toBe(true)
+    })
+
+    it.each([
+      function*(): Generator<number, void> {
+        yield 42
+      },
+      null
+    ])('`false` を返す', value => {
+      expect(Checks.isObject(value)).toBe(false)
+    })
+  })
+
   describe('isPromise()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       Checks.isPromise(Promise.resolve(123))

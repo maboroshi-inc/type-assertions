@@ -440,6 +440,46 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isFunction()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isFunction)
+      checksAPISpy = jest.spyOn(Checks, 'isFunction')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isFunction()` を呼び出す', () => {
+      const fn = (): number => 42
+
+      assertion(fn)
+      expect(checksAPISpy).toHaveBeenCalledWith(fn)
+    })
+
+    it.each([
+      (): number => 42,
+      // eslint-disable-next-line no-new-func
+      new Function('return 42')
+    ])('チェックをパスする', value => {
+      expect(assertion(value)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([
+      function*(): Generator<number, void> {
+        yield 42
+      },
+      null
+    ])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError('value is not a function')
+    })
+  })
+
   describe('isPromise()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isPromise)

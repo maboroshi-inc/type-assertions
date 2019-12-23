@@ -134,6 +134,15 @@ export const Asserts = {
   },
 
   /**
+   * 値が関数かアサートする
+   * @param value
+   * @throw `value` が関数でない
+   */
+  isFunction(value: unknown): asserts value is Function {
+    return assert(Checks.isFunction(value), 'value is not a function')
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトかアサートする
    * @param value
    * @throw `value` がPromiseでない

@@ -143,6 +143,14 @@ export const Checks = {
   },
 
   /**
+   * 値が関数か否かを返す
+   * @param value
+   */
+  isFunction(value: unknown): value is Function {
+    return getObjectTypeName(value) === '[object Function]'
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトか否かを返す
    * @param value
    */
@@ -159,11 +167,7 @@ export const Checks = {
       return true
     }
 
-    return (
-      !!value &&
-      /** @todo `Checks.isFunction` が実装されたらそれを使う */
-      getObjectTypeName((value as MaybeThenable).then) === '[object Function]'
-    )
+    return !!value && Checks.isFunction((value as MaybeThenable).then)
   },
 
   /**
