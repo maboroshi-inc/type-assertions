@@ -96,23 +96,6 @@ describe('Guards API', () => {
     })
   })
 
-  describe('isValidDate()', () => {
-    it('`getObjectTypeName()` を呼び出す', () => {
-      const date = new Date('2020-10-10')
-      Guards.isDate(date)
-      expect(getObjectTypeNameSpy).toBeCalledWith(date)
-    })
-
-    it('`true` を返す', () => {
-      expect(Guards.isValidDate(new Date('2020-10-10'))).toBe(true)
-    })
-
-    it('`false` を返す', () => {
-      expect(Guards.isValidDate(new Date('20201010'))).toBe(false)
-      expect(Guards.isValidDate(null)).toBe(false)
-    })
-  })
-
   describe('isError()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const error = new Error()
@@ -159,6 +142,55 @@ describe('Guards API', () => {
     })
   })
 
+  describe('isFunction()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const fn = (): number => 42
+
+      Guards.isFunction(fn)
+      expect(getObjectTypeNameSpy).toBeCalledWith(fn)
+    })
+
+    it.each([
+      (): number => 42,
+      // eslint-disable-next-line no-new-func
+      new Function('return 42')
+    ])('`true` を返す', value => {
+      expect(Guards.isFunction(value)).toBe(true)
+    })
+
+    it.each([
+      function*(): Generator<number, void> {
+        yield 42
+      },
+      null
+    ])('`false` を返す', value => {
+      expect(Guards.isFunction(value)).toBe(false)
+    })
+  })
+
+  describe('isGeneratorFunction()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      function* fn(): Generator<number, void> {
+        yield 42
+      }
+
+      Guards.isGeneratorFunction(fn)
+      expect(getObjectTypeNameSpy).toBeCalledWith(fn)
+    })
+
+    it.each([
+      function* fn(): Generator<number, void> {
+        yield 42
+      }
+    ])('`true` を返す', value => {
+      expect(Guards.isGeneratorFunction(value)).toBe(true)
+    })
+
+    it.each([(): number => 42, null])('`false` を返す', value => {
+      expect(Guards.isGeneratorFunction(value)).toBe(false)
+    })
+  })
+
   describe('isInteger()', () => {
     it('`Guards.isNumber() を呼び出す`', () => {
       const isNumberSpy = jest.spyOn(Guards, 'isNumber')
@@ -189,6 +221,28 @@ describe('Guards API', () => {
       expect(Guards.isInteger(-Infinity)).toBe(false)
       expect(Guards.isInteger('10')).toBe(false)
       expect(Guards.isInteger(null)).toBe(false)
+    })
+  })
+
+  describe('isMap()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = new Map()
+
+      Guards.isMap(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it.each([new Map()])('`true` を返す', map => {
+      expect(Guards.isMap(map)).toBe(true)
+    })
+
+    it.each([
+      Object.create(null), // dictionary
+      new Set(),
+      new WeakMap(),
+      null
+    ])('`false` を返す', value => {
+      expect(Guards.isMap(value)).toBe(false)
     })
   })
 
@@ -243,33 +297,6 @@ describe('Guards API', () => {
     it('`false` を返す', () => {
       expect(Guards.isNumber(null)).toBe(false)
       expect(Guards.isNumber('123')).toBe(false)
-    })
-  })
-
-  describe('isStrictNumber()', () => {
-    it('`Guards.isNumber() を呼び出す`', () => {
-      const isNumberSpy = jest.spyOn(Guards, 'isNumber')
-      Guards.isStrictNumber(123)
-      expect(isNumberSpy).toBeCalledWith(123)
-      isNumberSpy.mockRestore()
-    })
-
-    it('`Guards.isNaN() を呼び出す`', () => {
-      const isNaNSpy = jest.spyOn(Guards, 'isNaN')
-      Guards.isStrictNumber(123)
-      expect(isNaNSpy).toBeCalledWith(123)
-      isNaNSpy.mockRestore()
-    })
-
-    it('`true` を返す', () => {
-      expect(Guards.isStrictNumber(123)).toBe(true)
-      expect(Guards.isStrictNumber(new Number(123))).toBe(true) // eslint-disable-line no-new-wrappers
-    })
-
-    it('`false` を返す', () => {
-      expect(Guards.isStrictNumber(NaN)).toBe(false)
-      expect(Guards.isStrictNumber(null)).toBe(false)
-      expect(Guards.isStrictNumber('123')).toBe(false)
     })
   })
 
@@ -360,55 +387,6 @@ describe('Guards API', () => {
       new DummyClassForIsPlaneObjectTesting()
     ])('`false` を返す', value => {
       expect(Guards.isPlainObject(value)).toBe(false)
-    })
-  })
-
-  describe('isFunction()', () => {
-    it('`getObjectTypeName()` を呼び出す', () => {
-      const fn = (): number => 42
-
-      Guards.isFunction(fn)
-      expect(getObjectTypeNameSpy).toBeCalledWith(fn)
-    })
-
-    it.each([
-      (): number => 42,
-      // eslint-disable-next-line no-new-func
-      new Function('return 42')
-    ])('`true` を返す', value => {
-      expect(Guards.isFunction(value)).toBe(true)
-    })
-
-    it.each([
-      function*(): Generator<number, void> {
-        yield 42
-      },
-      null
-    ])('`false` を返す', value => {
-      expect(Guards.isFunction(value)).toBe(false)
-    })
-  })
-
-  describe('isGeneratorFunction()', () => {
-    it('`getObjectTypeName()` を呼び出す', () => {
-      function* fn(): Generator<number, void> {
-        yield 42
-      }
-
-      Guards.isGeneratorFunction(fn)
-      expect(getObjectTypeNameSpy).toBeCalledWith(fn)
-    })
-
-    it.each([
-      function* fn(): Generator<number, void> {
-        yield 42
-      }
-    ])('`true` を返す', value => {
-      expect(Guards.isGeneratorFunction(value)).toBe(true)
-    })
-
-    it.each([(): number => 42, null])('`false` を返す', value => {
-      expect(Guards.isGeneratorFunction(value)).toBe(false)
     })
   })
 
@@ -529,6 +507,50 @@ describe('Guards API', () => {
     })
   })
 
+  describe('isSet()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      const expected = new Set()
+
+      Guards.isSet(expected)
+      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+    })
+
+    it.each([new Set()])('`true` を返す', value => {
+      expect(Guards.isSet(value)).toBe(true)
+    })
+
+    it.each([[], new WeakSet(), null])('`false` を返す', value => {
+      expect(Guards.isSet(value)).toBe(false)
+    })
+  })
+
+  describe('isStrictNumber()', () => {
+    it('`Guards.isNumber() を呼び出す`', () => {
+      const isNumberSpy = jest.spyOn(Guards, 'isNumber')
+      Guards.isStrictNumber(123)
+      expect(isNumberSpy).toBeCalledWith(123)
+      isNumberSpy.mockRestore()
+    })
+
+    it('`Guards.isNaN() を呼び出す`', () => {
+      const isNaNSpy = jest.spyOn(Guards, 'isNaN')
+      Guards.isStrictNumber(123)
+      expect(isNaNSpy).toBeCalledWith(123)
+      isNaNSpy.mockRestore()
+    })
+
+    it('`true` を返す', () => {
+      expect(Guards.isStrictNumber(123)).toBe(true)
+      expect(Guards.isStrictNumber(new Number(123))).toBe(true) // eslint-disable-line no-new-wrappers
+    })
+
+    it('`false` を返す', () => {
+      expect(Guards.isStrictNumber(NaN)).toBe(false)
+      expect(Guards.isStrictNumber(null)).toBe(false)
+      expect(Guards.isStrictNumber('123')).toBe(false)
+    })
+  })
+
   describe('isString()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
       const expected = 'string'
@@ -571,25 +593,20 @@ describe('Guards API', () => {
     })
   })
 
-  describe('isMap()', () => {
+  describe('isValidDate()', () => {
     it('`getObjectTypeName()` を呼び出す', () => {
-      const expected = new Map()
-
-      Guards.isMap(expected)
-      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
+      const date = new Date('2020-10-10')
+      Guards.isDate(date)
+      expect(getObjectTypeNameSpy).toBeCalledWith(date)
     })
 
-    it.each([new Map()])('`true` を返す', map => {
-      expect(Guards.isMap(map)).toBe(true)
+    it('`true` を返す', () => {
+      expect(Guards.isValidDate(new Date('2020-10-10'))).toBe(true)
     })
 
-    it.each([
-      Object.create(null), // dictionary
-      new Set(),
-      new WeakMap(),
-      null
-    ])('`false` を返す', value => {
-      expect(Guards.isMap(value)).toBe(false)
+    it('`false` を返す', () => {
+      expect(Guards.isValidDate(new Date('20201010'))).toBe(false)
+      expect(Guards.isValidDate(null)).toBe(false)
     })
   })
 
@@ -613,23 +630,6 @@ describe('Guards API', () => {
       null
     ])('`false` を返す', value => {
       expect(Guards.isWeakMap(value)).toBe(false)
-    })
-  })
-
-  describe('isSet()', () => {
-    it('`getObjectTypeName()` を呼び出す', () => {
-      const expected = new Set()
-
-      Guards.isSet(expected)
-      expect(getObjectTypeNameSpy).toBeCalledWith(expected)
-    })
-
-    it.each([new Set()])('`true` を返す', value => {
-      expect(Guards.isSet(value)).toBe(true)
-    })
-
-    it.each([[], new WeakSet(), null])('`false` を返す', value => {
-      expect(Guards.isSet(value)).toBe(false)
     })
   })
 
