@@ -101,7 +101,7 @@ export const Asserts = {
    * @param value
    * @throw `value` が数値でない
    */
-  isNumber(value: any): asserts value is number {
+  isNumber(value: unknown): asserts value is number {
     return assert(Checks.isNumber(value), 'value is not a number')
   },
 
