@@ -405,7 +405,9 @@ describe('Guards API', () => {
     ])('`true` を返す', promise => {
       expect(Guards.isPromise(promise)).toBe(true)
 
-      promise.catch(() => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+      promise.catch((): void => {
+        return undefined
+      }) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
     })
 
     it.each([
@@ -449,7 +451,9 @@ describe('Guards API', () => {
     ])('`true` を返す', promise => {
       expect(Guards.isPromiseLike(promise)).toBe(true)
 
-      promise.then(null, () => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+      promise.then(null, (): void => {
+        return undefined
+      }) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
     })
 
     it.each([null])('`false` を返す', value => {

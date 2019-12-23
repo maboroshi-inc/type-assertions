@@ -4,7 +4,7 @@ import Guards from '../src/guards'
 describe('Asserts API', () => {
   const createAssertion = (assertion: (value: unknown) => void) => (
     value: unknown
-  ) => assertion(value)
+  ): void => assertion(value)
   let assertion: ReturnType<typeof createAssertion>
   let guardsAPISpy: jest.SpyInstance
 
@@ -521,7 +521,9 @@ describe('Asserts API', () => {
       expect(() => assertion(promise)).not.toThrowError()
       expect(guardsAPISpy).toHaveReturnedWith(true)
 
-      promise.catch(() => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+      promise.catch((): void => {
+        return undefined
+      }) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
     })
 
     it.each([
@@ -585,7 +587,9 @@ describe('Asserts API', () => {
       expect(() => assertion(promiseLike)).not.toThrowError()
       expect(guardsAPISpy).toHaveReturnedWith(true)
 
-      promiseLike.then(null, () => {}) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
+      promiseLike.then(null, (): void => {
+        return undefined
+      }) // UnhandledPromiseRejectionWarning の警告が出るため catch してる風を装う(謎)
     })
 
     it.each([null])('例外を投げる', value => {
