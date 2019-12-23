@@ -480,6 +480,45 @@ describe('Asserts API', () => {
     })
   })
 
+  describe('isGeneratorFunction()', () => {
+    beforeAll(() => {
+      assertion = createAssertion(Asserts.isGeneratorFunction)
+      checksAPISpy = jest.spyOn(Checks, 'isGeneratorFunction')
+    })
+
+    beforeEach(() => {
+      checksAPISpy.mockClear()
+    })
+
+    afterAll(() => {
+      checksAPISpy.mockRestore()
+    })
+
+    it('`Checks.isGeneratorFunction()` を呼び出す', () => {
+      function* fn(): Generator<number> {
+        yield 42
+      }
+
+      assertion(fn)
+      expect(checksAPISpy).toHaveBeenCalledWith(fn)
+    })
+
+    it.each([
+      function* fn(): Generator<number> {
+        yield 42
+      }
+    ])('チェックをパスする', value => {
+      expect(assertion(value)).toBeUndefined()
+      expect(checksAPISpy).toHaveReturnedWith(true)
+    })
+
+    it.each([(): number => 42, null])('例外を投げる', value => {
+      expect(() => assertion(value)).toThrowError(
+        'value is not a generator function'
+      )
+    })
+  })
+
   describe('isPromise()', () => {
     beforeAll(() => {
       assertion = createAssertion(Asserts.isPromise)

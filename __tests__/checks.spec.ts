@@ -385,7 +385,30 @@ describe('Checks API', () => {
       },
       null
     ])('`false` を返す', value => {
-      expect(Checks.isObject(value)).toBe(false)
+      expect(Checks.isFunction(value)).toBe(false)
+    })
+  })
+
+  describe('isGeneratorFunction()', () => {
+    it('`getObjectTypeName()` を呼び出す', () => {
+      function* fn(): Generator<number, void> {
+        yield 42
+      }
+
+      Checks.isGeneratorFunction(fn)
+      expect(getObjectTypeNameSpy).toBeCalledWith(fn)
+    })
+
+    it.each([
+      function* fn(): Generator<number, void> {
+        yield 42
+      }
+    ])('`true` を返す', value => {
+      expect(Checks.isGeneratorFunction(value)).toBe(true)
+    })
+
+    it.each([(): number => 42, null])('`false` を返す', value => {
+      expect(Checks.isGeneratorFunction(value)).toBe(false)
     })
   })
 

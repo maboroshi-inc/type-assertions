@@ -143,6 +143,18 @@ export const Asserts = {
   },
 
   /**
+   * 値がジェネレーター関数かアサートする
+   * @param value
+   * @throw `value` がジェネレーター関数でない
+   */
+  isGeneratorFunction(value: unknown): asserts value is GeneratorFunction {
+    return assert(
+      Checks.isGeneratorFunction(value),
+      'value is not a generator function'
+    )
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトかアサートする
    * @param value
    * @throw `value` がPromiseでない
