@@ -1,4 +1,4 @@
-import { assert } from '../src/internal/assert'
+import { assert } from '../../src/internal/assert'
 
 describe('assert()', () => {
   it('`void` を返す', () => {
