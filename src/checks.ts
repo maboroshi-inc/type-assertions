@@ -151,6 +151,14 @@ export const Checks = {
   },
 
   /**
+   * 値がジェネレーター関数か否かを返す
+   * @param value
+   */
+  isGeneratorFunction(value: unknown): value is GeneratorFunction {
+    return getObjectTypeName(value) === '[object GeneratorFunction]'
+  },
+
+  /**
    * 値がビルトインの `Promise` オブジェクトか否かを返す
    * @param value
    */
