@@ -1,7 +1,7 @@
 import Asserts from './asserts'
-import Checks from './checks'
+import Guards from './guards'
 
 export default {
   Asserts,
-  Checks
+  Guards
 }
