@@ -1,3 +1,6 @@
 {
-  "extends": ["@maboroshi/eslint-config"]
+  "extends": ["@maboroshi/eslint-config"],
+  "rules": {
+    "sort-keys": ["error", "asc", { "natural": true }]
+  }
 }

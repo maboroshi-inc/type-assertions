@@ -51,15 +51,6 @@ export const Guards = {
   },
 
   /**
-   * 値が有効なDateか否かを返す
-   * @param value
-   */
-  isValidDate(value: unknown): value is Date {
-    // Invalid Date の getTime の返り値は NaN。 なので返り値が NaN ではない場合は有効なDateとみなす。
-    return Guards.isDate(value) && !Guards.isNaN(value.getTime())
-  },
-
-  /**
    * 値がErrorか否かを返す
    * @param value
    */
@@ -77,12 +68,36 @@ export const Guards = {
   },
 
   /**
+   * 値が関数か否かを返す
+   * @param value
+   */
+  isFunction(value: unknown): value is Function {
+    return getObjectTypeName(value) === '[object Function]'
+  },
+
+  /**
+   * 値がジェネレーター関数か否かを返す
+   * @param value
+   */
+  isGeneratorFunction(value: unknown): value is GeneratorFunction {
+    return getObjectTypeName(value) === '[object GeneratorFunction]'
+  },
+
+  /**
    * 値が整数か否かを返す
    * @alias `Number.isInteger()`
    * @param value
    */
   isInteger(value: unknown): value is number {
     return Guards.isNumber(value) && Number.isInteger(value)
+  },
+
+  /**
+   * 値が `Map` か否かを返す
+   * @param value
+   */
+  isMap(value: unknown): value is Map<unknown, unknown> {
+    return getObjectTypeName(value) === '[object Map]'
   },
 
   /**
@@ -112,15 +127,6 @@ export const Guards = {
   },
 
   /**
-   * 値が厳密に数値か否かを返す
-   * @description `NaN` を `false` とする
-   * @param value
-   */
-  isStrictNumber(value: unknown): value is number {
-    return Guards.isNumber(value) && !Guards.isNaN(value)
-  },
-
-  /**
    * 値がobjectか否かを返す
    * @description `null` 及びプリミティブ値以外をすべて `true` とする
    * @param value
@@ -140,22 +146,6 @@ export const Guards = {
       getObjectTypeName(value) === '[object Object]' &&
       value.constructor === Object.prototype.constructor // constructor を比較してカスタムクラスを弾く
     )
-  },
-
-  /**
-   * 値が関数か否かを返す
-   * @param value
-   */
-  isFunction(value: unknown): value is Function {
-    return getObjectTypeName(value) === '[object Function]'
-  },
-
-  /**
-   * 値がジェネレーター関数か否かを返す
-   * @param value
-   */
-  isGeneratorFunction(value: unknown): value is GeneratorFunction {
-    return getObjectTypeName(value) === '[object GeneratorFunction]'
   },
 
   /**
@@ -196,6 +186,23 @@ export const Guards = {
   },
 
   /**
+   * 値が `Set` か否かを返す
+   * @param value
+   */
+  isSet(value: unknown): value is Set<unknown> {
+    return getObjectTypeName(value) === '[object Set]'
+  },
+
+  /**
+   * 値が厳密に数値か否かを返す
+   * @description `NaN` を `false` とする
+   * @param value
+   */
+  isStrictNumber(value: unknown): value is number {
+    return Guards.isNumber(value) && !Guards.isNaN(value)
+  },
+
+  /**
    * 値が文字列か否かを返す
    * @param value
    */
@@ -220,11 +227,12 @@ export const Guards = {
   },
 
   /**
-   * 値が `Map` か否かを返す
+   * 値が有効なDateか否かを返す
    * @param value
    */
-  isMap(value: unknown): value is Map<unknown, unknown> {
-    return getObjectTypeName(value) === '[object Map]'
+  isValidDate(value: unknown): value is Date {
+    // Invalid Date の getTime の返り値は NaN。 なので返り値が NaN ではない場合は有効なDateとみなす。
+    return Guards.isDate(value) && !Guards.isNaN(value.getTime())
   },
 
   /**
@@ -233,14 +241,6 @@ export const Guards = {
    */
   isWeakMap(value: unknown): value is WeakMap<object, unknown> {
     return getObjectTypeName(value) === '[object WeakMap]'
-  },
-
-  /**
-   * 値が `Set` か否かを返す
-   * @param value
-   */
-  isSet(value: unknown): value is Set<unknown> {
-    return getObjectTypeName(value) === '[object Set]'
   },
 
   /**

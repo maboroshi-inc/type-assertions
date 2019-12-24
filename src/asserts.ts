@@ -43,15 +43,6 @@ export const Asserts = {
   },
 
   /**
-   * 値が有効なDateかアサートする
-   * @param value
-   * @throw `value` が有効なDateでない
-   */
-  isValidDate(value: unknown): asserts value is Date {
-    assert(Guards.isValidDate(value), 'value is not a valid Date')
-  },
-
-  /**
    * 値がErrorかアサートする
    * @param value
    * @throw `value` がErrorでない
@@ -70,12 +61,42 @@ export const Asserts = {
   },
 
   /**
+   * 値が関数かアサートする
+   * @param value
+   * @throw `value` が関数でない
+   */
+  isFunction(value: unknown): asserts value is Function {
+    return assert(Guards.isFunction(value), 'value is not a function')
+  },
+
+  /**
+   * 値がジェネレーター関数かアサートする
+   * @param value
+   * @throw `value` がジェネレーター関数でない
+   */
+  isGeneratorFunction(value: unknown): asserts value is GeneratorFunction {
+    return assert(
+      Guards.isGeneratorFunction(value),
+      'value is not a generator function'
+    )
+  },
+
+  /**
    * 値が整数かアサートする
    * @param value
    * @throw `value` が整数でない
    */
   isInteger(value: unknown): asserts value is number {
     return assert(Guards.isInteger(value), 'value is not an integer')
+  },
+
+  /**
+   * 値が `Map` かアサートする
+   * @param value
+   * @throw `value` が `Map` でない
+   */
+  isMap(value: unknown): asserts value is Map<unknown, unknown> {
+    assert(Guards.isMap(value), 'value is not a Map')
   },
 
   /**
@@ -106,16 +127,6 @@ export const Asserts = {
   },
 
   /**
-   * 値が厳密に数値かアサートする
-   * @description `NaN` を例外とする
-   * @param value
-   * @throw `value` が厳密に数値でない
-   */
-  isStrictNumber(value: unknown): asserts value is number {
-    return assert(Guards.isStrictNumber(value), 'value is not a strict number')
-  },
-
-  /**
    * 値がビルトインのobjectかアサートする
    * @param value
    * @throw `value` がobjectでない
@@ -131,27 +142,6 @@ export const Asserts = {
    */
   isPlainObject(value: unknown): asserts value is object {
     return assert(Guards.isPlainObject(value), 'value is not a plane object')
-  },
-
-  /**
-   * 値が関数かアサートする
-   * @param value
-   * @throw `value` が関数でない
-   */
-  isFunction(value: unknown): asserts value is Function {
-    return assert(Guards.isFunction(value), 'value is not a function')
-  },
-
-  /**
-   * 値がジェネレーター関数かアサートする
-   * @param value
-   * @throw `value` がジェネレーター関数でない
-   */
-  isGeneratorFunction(value: unknown): asserts value is GeneratorFunction {
-    return assert(
-      Guards.isGeneratorFunction(value),
-      'value is not a generator function'
-    )
   },
 
   /**
@@ -191,6 +181,25 @@ export const Asserts = {
   },
 
   /**
+   * 値が `Set` かアサートする
+   * @param value
+   * @throw `value` が `Set` でない
+   */
+  isSet(value: unknown): asserts value is Set<unknown> {
+    assert(Guards.isSet(value), 'value is not a Set')
+  },
+
+  /**
+   * 値が厳密に数値かアサートする
+   * @description `NaN` を例外とする
+   * @param value
+   * @throw `value` が厳密に数値でない
+   */
+  isStrictNumber(value: unknown): asserts value is number {
+    return assert(Guards.isStrictNumber(value), 'value is not a strict number')
+  },
+
+  /**
    * 値が文字列かアサートする
    * @param value
    * @throw `value` が文字列でない
@@ -218,12 +227,12 @@ export const Asserts = {
   },
 
   /**
-   * 値が `Map` かアサートする
+   * 値が有効なDateかアサートする
    * @param value
-   * @throw `value` が `Map` でない
+   * @throw `value` が有効なDateでない
    */
-  isMap(value: unknown): asserts value is Map<unknown, unknown> {
-    assert(Guards.isMap(value), 'value is not a Map')
+  isValidDate(value: unknown): asserts value is Date {
+    assert(Guards.isValidDate(value), 'value is not a valid Date')
   },
 
   /**
@@ -233,15 +242,6 @@ export const Asserts = {
    */
   isWeakMap(value: unknown): asserts value is WeakMap<object, unknown> {
     assert(Guards.isWeakMap(value), 'value is not a WeakMap')
-  },
-
-  /**
-   * 値が `Set` かアサートする
-   * @param value
-   * @throw `value` が `Set` でない
-   */
-  isSet(value: unknown): asserts value is Set<unknown> {
-    assert(Guards.isSet(value), 'value is not a Set')
   },
 
   /**
