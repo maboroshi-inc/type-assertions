@@ -14,6 +14,7 @@ type MaybeThenable = {
 /**
  * 型ガードAPI
  * @description 値が指定の方であるか否かを `boolean` で返す
+ * @see {@link https://github.com/maboroshi-inc/type-assertions/blob/master/__tests__/guards.spec.ts|テストケース}
  * @category API
  */
 export const Guards = {
@@ -27,7 +28,7 @@ export const Guards = {
   },
 
   /**
-   * 値がBigIntか否かを返す
+   * 値が BigInt か否かを返す
    * @param value
    */
   isBigInt(value: unknown): value is bigint {
@@ -35,7 +36,7 @@ export const Guards = {
   },
 
   /**
-   * 値がBooleanか否かを返す
+   * 値が Boolean か否かを返す
    * @param value
    */
   isBoolean(value: unknown): value is boolean {
@@ -43,7 +44,7 @@ export const Guards = {
   },
 
   /**
-   * 値がDateか否かを返す
+   * 値が Date か否かを返す
    * @param value
    */
   isDate(value: unknown): value is Date {
@@ -51,7 +52,7 @@ export const Guards = {
   },
 
   /**
-   * 値がErrorか否かを返す
+   * 値が Error か否かを返す
    * @param value
    */
   isError(value: unknown): value is Error {
@@ -93,7 +94,7 @@ export const Guards = {
   },
 
   /**
-   * 値が `Map` か否かを返す
+   * 値が Map か否かを返す
    * @param value
    */
   isMap(value: unknown): value is Map<unknown, unknown> {
@@ -101,7 +102,7 @@ export const Guards = {
   },
 
   /**
-   * 値が `NaN` か否かを返す
+   * 値が NaN か否かを返す
    * @alias `Number.isNaN()`
    * @param value
    */
@@ -127,7 +128,7 @@ export const Guards = {
   },
 
   /**
-   * 値がobjectか否かを返す
+   * 値が Object を継承したオブジェクトか否かを返す
    * @description `null` 及びプリミティブ値以外をすべて `true` とする
    * @param value
    */
@@ -136,7 +137,7 @@ export const Guards = {
   },
 
   /**
-   * 値がObjectオブジェクトか否かを返す
+   * 値が Object オブジェクトか否かを返す
    * @description `Object` のみを `true` とする
    * @param value
    */
@@ -149,7 +150,7 @@ export const Guards = {
   },
 
   /**
-   * 値がビルトインの `Promise` オブジェクトか否かを返す
+   * 値がビルトインの Promise オブジェクトか否かを返す
    * @param value
    */
   isPromise(value: unknown): value is Promise<unknown> {
@@ -157,7 +158,7 @@ export const Guards = {
   },
 
   /**
-   * 値が `PromiseLike` なオブジェクトか否かを返す
+   * 値が PromiseLike なオブジェクトか否かを返す
    * @param value
    */
   isPromiseLike(value: unknown): value is PromiseLike<unknown> {
@@ -186,7 +187,7 @@ export const Guards = {
   },
 
   /**
-   * 値が `Set` か否かを返す
+   * 値が Set か否かを返す
    * @param value
    */
   isSet(value: unknown): value is Set<unknown> {
@@ -211,7 +212,7 @@ export const Guards = {
   },
 
   /**
-   * 値がsymbolか否かを返す
+   * 値が Symbol か否かを返す
    * @param value
    */
   isSymbol(value: unknown): value is symbol {
@@ -219,7 +220,7 @@ export const Guards = {
   },
 
   /**
-   * 値が undefined か否かを返す
+   * 値が `undefined` か否かを返す
    * @param value
    */
   isUndefined(value: unknown): value is undefined {
@@ -227,16 +228,16 @@ export const Guards = {
   },
 
   /**
-   * 値が有効なDateか否かを返す
+   * 値が有効な Date か否かを返す
    * @param value
    */
   isValidDate(value: unknown): value is Date {
-    // Invalid Date の getTime の返り値は NaN。 なので返り値が NaN ではない場合は有効なDateとみなす。
+    // Invalid Date の getTime の返り値は NaN。 なので返り値が NaN ではない場合は有効な Date とみなす。
     return Guards.isDate(value) && !Guards.isNaN(value.getTime())
   },
 
   /**
-   * 値が `WeakMap` か否かを返す
+   * 値が WeakMap か否かを返す
    * @param value
    */
   isWeakMap(value: unknown): value is WeakMap<object, unknown> {
@@ -244,7 +245,7 @@ export const Guards = {
   },
 
   /**
-   * 値が `WeakSet` か否かを返す
+   * 値が WeakSet か否かを返す
    * @param value
    */
   isWeakSet(value: unknown): value is WeakSet<object> {
