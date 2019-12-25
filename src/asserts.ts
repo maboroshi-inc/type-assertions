@@ -121,7 +121,7 @@ export const Asserts = {
 
   /**
    * 値が数値かアサートする
-   * @description NaNを許容する
+   * @description NaN を許容する
    * @param value
    * @throw `value` が数値でない
    */
