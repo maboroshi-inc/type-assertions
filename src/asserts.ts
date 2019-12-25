@@ -4,48 +4,50 @@ import { assert } from './internal/assert'
 /**
  * 型アサートAPI
  * @description 型が指定の値であるかアサートする
+ * @see {@link https://github.com/maboroshi-inc/type-assertions/blob/master/__tests__/asserts.spec.ts|テストケース}
  * @category API
  */
 export const Asserts = {
   /**
    * 値が配列かアサートする
    * @param value
+   * @throw `value` が配列でない
    */
   isArray(value: unknown): asserts value is unknown[] {
     return assert(Guards.isArray(value), 'value is not an array')
   },
 
   /**
-   * 値がBigIntかアサートする
+   * 値が BigInt かアサートする
    * @param value
-   * @throw `value` がBigIntでない
+   * @throw `value` が BigInt でない
    */
   isBigInt(value: unknown): asserts value is bigint {
     return assert(Guards.isBigInt(value), 'value is not a bigint')
   },
 
   /**
-   * 値がBooleanかアサートする
+   * 値が Boolean かアサートする
    * @param value
-   * @throw `value` がBooleanでない
+   * @throw `value` が Boolean でない
    */
   isBoolean(value: unknown): asserts value is boolean {
     return assert(Guards.isBoolean(value), 'value is not a boolean')
   },
 
   /**
-   * 値がDateかアサートする
+   * 値が Date かアサートする
    * @param value
-   * @throw `value` がDateでない
+   * @throw `value` が Date でない
    */
   isDate(value: unknown): asserts value is Date {
     return assert(Guards.isDate(value), 'value is not a Date')
   },
 
   /**
-   * 値がErrorかアサートする
+   * 値が Error かアサートする
    * @param value
-   * @throw `value` がErrorでない
+   * @throw `value` が Error でない
    */
   isError(value: unknown): asserts value is Error {
     return assert(Guards.isError(value), 'value is not an Error')
@@ -91,17 +93,18 @@ export const Asserts = {
   },
 
   /**
-   * 値が `Map` かアサートする
+   * 値が Map かアサートする
    * @param value
-   * @throw `value` が `Map` でない
+   * @throw `value` が Map でない
    */
   isMap(value: unknown): asserts value is Map<unknown, unknown> {
     assert(Guards.isMap(value), 'value is not a Map')
   },
 
   /**
-   * 値が `NaN` かアサートする
+   * 値が NaN かアサートする
    * @param value
+   * @throw `value` が NaN でない
    */
   isNaN(value: unknown): asserts value is typeof NaN {
     return assert(Guards.isNaN(value), 'value is not a NaN')
@@ -118,7 +121,7 @@ export const Asserts = {
 
   /**
    * 値が数値かアサートする
-   * @description `NaN` を許容する
+   * @description NaNを許容する
    * @param value
    * @throw `value` が数値でない
    */
@@ -127,25 +130,25 @@ export const Asserts = {
   },
 
   /**
-   * 値がビルトインのobjectかアサートする
+   * 値が Object を継承したオブジェクトかアサートする
    * @param value
-   * @throw `value` がobjectでない
+   * @throw `value` が Object を継承したオブジェクトでない
    */
   isObject(value: unknown): asserts value is object {
     return assert(Guards.isObject(value), 'value is not an object')
   },
 
   /**
-   * 値がObjectオブジェクトかアサートする
+   * 値が Object オブジェクトかアサートする
    * @param value
-   * @throw `value` がObjectオブジェクトでない
+   * @throw `value` が Object オブジェクトでない
    */
   isPlainObject(value: unknown): asserts value is object {
     return assert(Guards.isPlainObject(value), 'value is not a plane object')
   },
 
   /**
-   * 値がビルトインの `Promise` オブジェクトかアサートする
+   * 値がビルトインの Promise オブジェクトかアサートする
    * @param value
    * @throw `value` がPromiseでない
    */
@@ -154,9 +157,9 @@ export const Asserts = {
   },
 
   /**
-   * 値が `PromiseLike` なオブジェクトかアサートする
+   * 値が PromiseLike なオブジェクトかアサートする
    * @param value
-   * @throw `value` がPromiseLikeでない
+   * @throw `value` が PromiseLike でない
    */
   isPromiseLike(value: unknown): asserts value is PromiseLike<unknown> {
     assert(Guards.isPromiseLike(value), 'value is not a PromiseLike')
@@ -181,9 +184,9 @@ export const Asserts = {
   },
 
   /**
-   * 値が `Set` かアサートする
+   * 値が Set かアサートする
    * @param value
-   * @throw `value` が `Set` でない
+   * @throw `value` が Set でない
    */
   isSet(value: unknown): asserts value is Set<unknown> {
     assert(Guards.isSet(value), 'value is not a Set')
@@ -209,45 +212,45 @@ export const Asserts = {
   },
 
   /**
-   * 値がsymbolかアサートする
+   * 値が Symbol かアサートする
    * @param value
-   * @throw `value` がsymbolでない
+   * @throw `value` が Symbol でない
    */
   isSymbol(value: unknown): asserts value is symbol {
     return assert(Guards.isSymbol(value), 'value is not a symbol')
   },
 
   /**
-   * 値が undefined かアサートする
+   * 値が `undefined` かアサートする
    * @param value
-   * @throw `value` が undefined でない
+   * @throw `value` が `undefined` でない
    */
   isUndefined(value: unknown): asserts value is undefined {
     return assert(Guards.isUndefined(value), 'value is not an undefined')
   },
 
   /**
-   * 値が有効なDateかアサートする
+   * 値が有効な Date かアサートする
    * @param value
-   * @throw `value` が有効なDateでない
+   * @throw `value` が有効な Date でない
    */
   isValidDate(value: unknown): asserts value is Date {
     assert(Guards.isValidDate(value), 'value is not a valid Date')
   },
 
   /**
-   * 値が `WeakMap` かアサートする
+   * 値が WeakMap かアサートする
    * @param value
-   * @throw `value` が `WeakMap` でない
+   * @throw `value` が WeakMap でない
    */
   isWeakMap(value: unknown): asserts value is WeakMap<object, unknown> {
     assert(Guards.isWeakMap(value), 'value is not a WeakMap')
   },
 
   /**
-   * 値が `WeakSet` かアサートする
+   * 値が WeakSet かアサートする
    * @param value
-   * @throw `value` が `WeakSet` でない
+   * @throw `value` が WeakSet でない
    */
   isWeakSet(value: unknown): asserts value is WeakSet<object> {
     assert(Guards.isWeakSet(value), 'value is not a WeakSet')
