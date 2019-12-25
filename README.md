@@ -49,3 +49,7 @@ const fn = (value: number | null) => {
 fn(123) // => `123`
 fn(null) // => undefined
 ```
+
+## API
+
+[API ドキュメント](https://maboroshi-inc.github.io/type-assertions/) を見る
