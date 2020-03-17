@@ -1,6 +1,6 @@
 {
   "name": "@maboroshi/type-assertions",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Type assertion utilities.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -37,12 +37,12 @@
     "jest": "^24.9.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
-    "rollup": "^1.27.14",
+    "rollup": "^1.32.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-filesize": "^6.2.1",
     "rollup-plugin-progress": "^1.1.1",
     "rollup-plugin-typescript2": "^0.26.0",
-    "ts-jest": "^24.2.0",
+    "ts-jest": "^24.3.0",
     "typescript": "^3.8.2"
   },
   "husky": {
